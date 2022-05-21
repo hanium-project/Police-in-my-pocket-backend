@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Getter  //클래스 내의 모든 필드의 getter 생성
 @NoArgsConstructor   //기본 생성자 자동 추가
 @Entity    //테이블과 링크될 클래스임을 나타냄
-@Table(name = "user_table")
-public class Member {
+@Table(name = "account")
+public class Account {
     @Id   //해당 테이블의 PK 필드를 나타냄
     private String user_id;
 
@@ -33,7 +33,7 @@ public class Member {
     private int user_siren_code;
 
     @Builder  //해당 클래스의 빌더 패턴 클래스를 생성
-    public Member(String user_id, String password, String user_name, java.sql.Date birth, String address, String phone_number, int user_siren_code) {
+    public Account(String user_id, String password, String user_name, java.sql.Date birth, String address, String phone_number, int user_siren_code) {
         this.user_id = user_id;
         this.password = password;
         this.user_name = user_name;
