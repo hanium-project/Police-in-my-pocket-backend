@@ -1,16 +1,23 @@
 package com.pocket.police.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.pocket.police.Dto.AccountRequestDto;
+import com.pocket.police.Dto.AccountResponseDto;
+import com.pocket.police.entity.Account;
+import com.pocket.police.service.AccountService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/api")
 public class TestController {
-    @GetMapping("/test")
+    private final AccountService accountService;
+    @PostMapping(value = "/users/signup")
     @ResponseBody
-    public String testReturn() {
-        return "success controller!";
+    public Account save(@RequestBody AccountRequestDto requestDto) {
+        Account account = accountService.save(requestDto);
+        return account;
     }
+
+
 }

@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "account")
 public class Account {
     @Id   //해당 테이블의 PK 필드를 나타냄
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)   -> 자동으로 생성할 필요가 없기 때문에 사용하지 않음
     private String user_id;
 
     @Column(name = "password", nullable = false)  //해당 테이블의 칼럼을 나타냄
@@ -29,17 +30,21 @@ public class Account {
     @Column(name = "phone_number", nullable = false)
     private String phone_number;
 
+    @Column(name = "gender", nullable = false)
+    private String gender;
+
     @Column(name = "user_siren_code", nullable = true)
     private int user_siren_code;
 
     @Builder  //해당 클래스의 빌더 패턴 클래스를 생성
-    public Account(String user_id, String password, String user_name, java.sql.Date birth, String address, String phone_number, int user_siren_code) {
+    public Account(String user_id, String password, String user_name, java.sql.Date birth, String address, String phone_number, String gender, int user_siren_code) {
         this.user_id = user_id;
         this.password = password;
         this.user_name = user_name;
         this.birth = birth;
         this.address = address;
         this.phone_number = phone_number;
+        this.gender = gender;
         this.user_siren_code = user_siren_code;
     }
 }
