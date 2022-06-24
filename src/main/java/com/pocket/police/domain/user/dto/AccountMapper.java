@@ -1,7 +1,7 @@
-package com.pocket.police.Dto;
+package com.pocket.police.domain.user.dto;
 
-import com.pocket.police.entity.Account;
-import com.pocket.police.repository.AccountRepository;
+import com.pocket.police.domain.user.entity.Account;
+import com.pocket.police.domain.user.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

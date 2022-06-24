@@ -1,4 +1,4 @@
-package com.pocket.police.entity;
+package com.pocket.police.domain.user.entity;
 
 import lombok.Builder;
 import lombok.Getter;

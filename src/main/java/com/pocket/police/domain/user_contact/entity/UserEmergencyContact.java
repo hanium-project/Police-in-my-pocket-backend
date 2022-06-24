@@ -1,4 +1,4 @@
-package com.pocket.police.entity;
+package com.pocket.police.domain.user_contact.entity;
 
 import javax.persistence.*;
 

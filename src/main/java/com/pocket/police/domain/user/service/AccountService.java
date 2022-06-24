@@ -1,11 +1,10 @@
-package com.pocket.police.service;
+package com.pocket.police.domain.user.service;
 
-import com.pocket.police.Dto.AccountMapper;
-import com.pocket.police.Dto.AccountRequestDto;
-import com.pocket.police.entity.Account;
-import com.pocket.police.repository.AccountRepository;
+import com.pocket.police.domain.user.dto.AccountMapper;
+import com.pocket.police.domain.user.dto.AccountRequestDto;
+import com.pocket.police.domain.user.entity.Account;
+import com.pocket.police.domain.user.repository.AccountRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
