@@ -25,10 +25,7 @@ public class AccountService {
         return entity.getUser_id();
     }
 
-<<<<<<< HEAD
     @Transactional
-=======
->>>>>>> 44334f5cf1abf8de034a8d24869910d0951630b5
     public List<AccountResponseDto> findAll() {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
