@@ -1,4 +1,4 @@
-package com.pocket.police.domain;
+package com.pocket.police.global;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

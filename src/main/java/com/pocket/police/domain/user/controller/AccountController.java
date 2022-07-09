@@ -1,8 +1,8 @@
-package com.pocket.police.controller;
+package com.pocket.police.domain.user.controller;
 
-import com.pocket.police.domain.AccountRepository;
-import com.pocket.police.domain.AccountRequestDto;
-import com.pocket.police.service.AccountService;
+import com.pocket.police.domain.user.repository.AccountRepository;
+import com.pocket.police.domain.user.dto.AccountRequestDto;
+import com.pocket.police.domain.user.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

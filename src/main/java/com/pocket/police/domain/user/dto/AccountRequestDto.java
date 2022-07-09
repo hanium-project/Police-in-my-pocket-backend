@@ -1,15 +1,13 @@
-package com.pocket.police.domain;
+package com.pocket.police.domain.user.dto;
 
+import com.pocket.police.domain.user.entity.Account;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
-@Setter // Lombok이 getter, setter 자동 생성
 @Getter
-@Embeddable
 @RequiredArgsConstructor // 꼭 필요한 요소(final) 자동 생성
 //@NoArgsConstructor
 public class AccountRequestDto {

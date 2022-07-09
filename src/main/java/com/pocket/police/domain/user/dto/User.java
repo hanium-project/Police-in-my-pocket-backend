@@ -1,4 +1,4 @@
-package com.pocket.police.domain;
+package com.pocket.police.domain.user.dto;
 
 import lombok.Getter;
 

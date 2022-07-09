@@ -1,20 +1,16 @@
-package com.pocket.police.service;
+package com.pocket.police.domain.user.service;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud;
-import com.pocket.police.domain.Account;
-import com.pocket.police.domain.AccountRepository;
-import com.pocket.police.domain.AccountRequestDto;
-import com.pocket.police.domain.AccountResponseDto;
+import com.pocket.police.domain.user.entity.Account;
+import com.pocket.police.domain.user.repository.AccountRepository;
+import com.pocket.police.domain.user.dto.AccountRequestDto;
+import com.pocket.police.domain.user.dto.AccountResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.h2.api.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor // 꼭 필요한 요소(final) 자동 생성
@@ -29,6 +25,7 @@ public class AccountService {
         return entity.getUser_id();
     }
 
+    @Transactional
     public List<AccountResponseDto> findAll() {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");

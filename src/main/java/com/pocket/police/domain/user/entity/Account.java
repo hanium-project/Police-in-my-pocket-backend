@@ -1,5 +1,6 @@
-package com.pocket.police.domain;
+package com.pocket.police.domain.user.entity;
 
+import com.pocket.police.global.Timestamped;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor   //기본 생성자 자동 추가
 @Entity    //테이블과 링크될 클래스임을 나타냄
 @Table(name = "account")
-public class Account extends Timestamped{
+public class Account extends Timestamped {
     @Id   //해당 테이블의 PK 필드를 나타냄
     private String user_id;
 
