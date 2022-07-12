@@ -1,8 +1,10 @@
 package com.pocket.police.domain.safe_location.service;
 
+import com.pocket.police.domain.safe_location.dto.LocationRequestDto;
 import com.pocket.police.domain.safe_location.dto.LocationResponseDto;
 import com.pocket.police.domain.safe_location.entity.SafeLocation;
 import com.pocket.police.domain.safe_location.repository.SafeLocationRepository;
+import com.pocket.police.domain.user.dto.AccountRequestDto;
 import com.pocket.police.domain.user.dto.AccountResponseDto;
 import com.pocket.police.domain.user.entity.Account;
 import com.pocket.police.domain.user.repository.AccountRepository;
@@ -20,6 +22,13 @@ import java.util.stream.Collectors;
 public class SafeLocationService {
 
     private final SafeLocationRepository safelocationRepository;
+
+
+    @Transactional
+    public Long save(final LocationRequestDto params) {
+        SafeLocation entity = safelocationRepository.save(params.toEntity());
+        return entity.getLocation_id();
+    }
 
     @Transactional
     public List<SafeLocation> findAll() {
