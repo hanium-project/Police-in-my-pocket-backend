@@ -1,27 +1,47 @@
 package com.pocket.police.domain.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.pocket.police.domain.user.entity.Account;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.Embeddable;
+
+@Setter // Lombok이 getter, setter 자동 생성
 @Getter
-@Builder
-@AllArgsConstructor   //모든 필드값을 파라미터로 받는 생성자를 만듦
-//DTO는 생성자가 필요한데 해당 롬복을 설정하면 생성자를 만들지 않아도 됨
+@Embeddable
+@RequiredArgsConstructor // 꼭 필요한 요소(final) 자동 생성
+//@NoArgsConstructor
 public class AccountRequestDto {
+
     private String user_id;
-
     private String password;
-
     private String user_name;
-
     private java.sql.Date birth;
-
+    private String address;
     private String phone_number;
+    private int user_siren_code;
 
     private String gender;
 
-    private String address;
+    public Account toEntity(){
+        return Account.builder()
+                .user_id(user_id)
+                .password(password)
+                .user_name(user_name)
+                .birth(birth)
+                .address(address)
+                .phone_number(phone_number)
+                .user_siren_code(user_siren_code)
+                .gender(gender)
+                .build();
+    }
 
-    private int user_siren_code;
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

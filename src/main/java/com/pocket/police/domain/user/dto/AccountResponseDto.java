@@ -1,25 +1,25 @@
 package com.pocket.police.domain.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.pocket.police.domain.user.entity.Account;
 
-@Builder
-@AllArgsConstructor   //모든 필드값을 파라미터로 받는 생성자를 만듦
-//DTO는 생성자가 필요한데 해당 롬복을 설정하면 생성자를 만들지 않아도 됨
 public class AccountResponseDto {
+
     private String user_id;
-
     private String password;
-
     private String user_name;
-
     private java.sql.Date birth;
-
-    private String phone_number;
-
-    private String gender;
-
     private String address;
-
+    private String phone_number;
     private int user_siren_code;
+
+    public AccountResponseDto(Account entity) {
+        this.user_id = entity.getUser_id();
+        this.password = entity.getPassword();
+        this.user_name = entity.getUser_name();
+        this.birth = entity.getBirth();
+        this.address = entity.getAddress();
+        this.phone_number = entity.getPhone_number();
+        this.user_siren_code = entity.getUser_siren_code();
+    }
+
 }
