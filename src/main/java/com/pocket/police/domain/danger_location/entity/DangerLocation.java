@@ -32,7 +32,7 @@ public class DangerLocation {
         this.latitude = latitude;
         this.longitude = longitude;
         this.locationTitle = locationTitle;
-        this.occurenceCount = 0;
+        this.occurenceCount = 1;
     }
 
     public void update(int occurenceCount) {
