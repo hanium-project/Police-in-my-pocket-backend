@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
+import java.util.Collection;
 
 @Setter // Lombok이 getter, setter 자동 생성
 @Getter
@@ -14,31 +15,33 @@ import javax.persistence.Embeddable;
 //@NoArgsConstructor
 public class AccountRequestDto {
 
-    private String user_id;
+    private String userId;
     private String password;
-    private String user_name;
+    private String name;
     private java.sql.Date birth;
     private String address;
-    private String phone_number;
-    private int user_siren_code;
+    private String phoneNumber;
+    private int userSirenCode;
 
     private String gender;
 
+    //private String roles;
+
     public Account toEntity(){
         return Account.builder()
-                .user_id(user_id)
+                .userId(userId)
                 .password(password)
-                .user_name(user_name)
+                .name(name)
                 .birth(birth)
                 .address(address)
-                .phone_number(phone_number)
-                .user_siren_code(user_siren_code)
+                .phoneNumber(phoneNumber)
+                .userSirenCode(userSirenCode)
                 .gender(gender)
                 .build();
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
     public String getPassword() {
