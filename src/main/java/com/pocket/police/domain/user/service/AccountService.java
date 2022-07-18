@@ -6,7 +6,11 @@ import com.pocket.police.domain.user.dto.AccountRequestDto;
 import com.pocket.police.domain.user.dto.AccountResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Sort;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,8 +23,14 @@ public class AccountService {
     @Autowired
     private final AccountRepository accountRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Transactional
     public String save(final AccountRequestDto params) {
+        String pw = params.getPassword();
+        pw = passwordEncoder.encode(params.getPassword());
+        params.setPassword(pw);
         Account entity = accountRepository.save(params.toEntity());
         return entity.getUser_id();
     }
@@ -37,7 +47,7 @@ public class AccountService {
     public String update(final String id, final AccountRequestDto params) {
 
         Account entity = accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
-        entity.update(params.getUser_id(), params.getPassword(), params.getUser_name(), params.getBirth(), params.getAddress(), params.getPhone_number(),
+        entity.update(params.getUser_id(), params.getPassword(), params.getUser_name(), params.getBirth(), params.getAddress(), params.getGender(),  params.getPhone_number(),
                 params.getUser_siren_code());
         return id;
     }

@@ -9,6 +9,7 @@ public class AccountResponseDto {
     private String user_name;
     private java.sql.Date birth;
     private String address;
+    private String gender;
     private String phone_number;
     private int user_siren_code;
 
@@ -19,6 +20,7 @@ public class AccountResponseDto {
         this.user_name = entity.getUser_name();
         this.birth = entity.getBirth();
         this.address = entity.getAddress();
+        this.gender = entity.getGender();
         this.phone_number = entity.getPhone_number();
         this.user_siren_code = entity.getUser_siren_code();
     }
