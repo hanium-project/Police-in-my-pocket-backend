@@ -1,6 +1,7 @@
 package com.pocket.police.domain.user.entity;
 
 import com.pocket.police.global.Timestamped;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter  //클래스 내의 모든 필드의 getter 생성
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity    //테이블과 링크될 클래스임을 나타냄
 @Table(name = "account")
 public class Account extends Timestamped implements UserDetails {
@@ -45,20 +48,21 @@ public class Account extends Timestamped implements UserDetails {
     private int userSirenCode;
 
     @ElementCollection(fetch = FetchType.EAGER)
-//    @Builder.Default
+    @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    @Builder  //해당 클래스의 빌더 패턴 클래스를 생성
-    public Account(String userId, String password, String name, java.sql.Date birth, String gender, String address, String phoneNumber, int userSirenCode) {
-        this.userId = userId;
-        this.password = password;
-        this.name = name;
-        this.birth = birth;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.userSirenCode = userSirenCode;
-        this.gender = gender;
-    }
+
+//    @Builder  //해당 클래스의 빌더 패턴 클래스를 생성
+//    public Account(String userId, String password, String name, java.sql.Date birth, String gender, String address, String phoneNumber, int userSirenCode) {
+//        this.userId = userId;
+//        this.password = password;
+//        this.name = name;
+//        this.birth = birth;
+//        this.address = address;
+//        this.phoneNumber = phoneNumber;
+//        this.userSirenCode = userSirenCode;
+//        this.gender = gender;
+//    }
 
     public void update(String userId, String password, String userName, java.sql.Date birth, String address, String phoneNumber, int userSirenCode, String gender) {
         this.userId = userId;
@@ -71,16 +75,8 @@ public class Account extends Timestamped implements UserDetails {
         this.gender = gender;
     }
 
-//    public boolean login(String id,String pw){
-//        if(user_id.equals(id) && password.equals(pw))
-//            return true;
-//        else
-//            return false;
-//    }
-
-
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {  //계정이 가진 권한 목록 리턴
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());

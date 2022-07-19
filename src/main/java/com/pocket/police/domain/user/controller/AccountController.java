@@ -6,8 +6,6 @@ import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.service.AccountService;
 import com.pocket.police.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,19 +40,6 @@ public class AccountController {
         return id;
     }
 
-//    @GetMapping("/users/login")
-//    public String login() {
-//        return "login";
-//    }
-//
-//    @PostMapping("/users/login")
-//    public String loginId(@RequestBody AccountRequestDto requestDto) {
-//        if(accountService.login(requestDto)){
-//            return "로그인 성공";
-//        }
-//        return "로그인 실패";
-//    }
-
     @PostMapping("/users/password")
     public String findPassword(@RequestBody AccountRequestDto requestDto) {
         return accountService.findpw(requestDto);
@@ -73,6 +58,6 @@ public class AccountController {
             throw new IllegalArgumentException("잘못된 비밀번호 입니다. " + user.get("password") + " / " + account.getPassword());
         }
 
-        return jwtTokenProvider.CreateToken(account.getUserId(), account.getRoles());
+        return "사용자 권한 : " + account.getRoles() + " " + jwtTokenProvider.CreateToken(account.getUserId(), account.getRoles());
     }
 }

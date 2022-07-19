@@ -1,5 +1,6 @@
 package com.pocket.police.global.security;
 
+import com.pocket.police.domain.user.entity.Roles;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -36,7 +37,7 @@ public class JwtTokenProvider {
     //JWT token 생성
     public String CreateToken(String userId, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userId);
-        claims.put("roles", roles);
+        claims.put("Roles", roles);
         Date date = new Date();
 
         return Jwts.builder()

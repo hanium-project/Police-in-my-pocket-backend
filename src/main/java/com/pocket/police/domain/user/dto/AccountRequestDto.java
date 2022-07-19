@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Embeddable;
 import java.util.Collection;
+import java.util.Collections;
 
 @Setter // Lombok이 getter, setter 자동 생성
 @Getter
@@ -37,6 +38,7 @@ public class AccountRequestDto {
                 .phoneNumber(phoneNumber)
                 .userSirenCode(userSirenCode)
                 .gender(gender)
+                .roles(Collections.singletonList("ROLE_USER"))
                 .build();
     }
 
