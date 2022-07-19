@@ -20,6 +20,8 @@ public class AccountRequestDto {
     private String phone_number;
     private int user_siren_code;
 
+    private String gender;
+
     public Account toEntity(){
         return Account.builder()
                 .user_id(user_id)
@@ -29,6 +31,7 @@ public class AccountRequestDto {
                 .address(address)
                 .phone_number(phone_number)
                 .user_siren_code(user_siren_code)
+                .gender(gender)
                 .build();
     }
 

@@ -12,7 +12,6 @@ public class AccountResponseDto {
     private String phone_number;
     private int user_siren_code;
 
-
     public AccountResponseDto(Account entity) {
         this.user_id = entity.getUser_id();
         this.password = entity.getPassword();
