@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.Embeddable;
 
 @Getter
+@Setter
 @RequiredArgsConstructor // 꼭 필요한 요소(final) 자동 생성
 //@NoArgsConstructor
 public class AccountRequestDto {
@@ -17,6 +18,8 @@ public class AccountRequestDto {
     private String user_name;
     private java.sql.Date birth;
     private String address;
+
+    private String gender;
     private String phone_number;
     private int user_siren_code;
 
@@ -29,6 +32,7 @@ public class AccountRequestDto {
                 .user_name(user_name)
                 .birth(birth)
                 .address(address)
+                .gender(gender)
                 .phone_number(phone_number)
                 .user_siren_code(user_siren_code)
                 .gender(gender)

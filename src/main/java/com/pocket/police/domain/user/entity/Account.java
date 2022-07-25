@@ -4,6 +4,7 @@ import com.pocket.police.global.Timestamped;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -37,23 +38,25 @@ public class Account extends Timestamped {
     private int user_siren_code;
 
     @Builder  //해당 클래스의 빌더 패턴 클래스를 생성polin
-    public Account(String user_id, String password, String user_name, java.sql.Date birth, String gender, String address, String phone_number, int user_siren_code) {
+    public Account(String user_id, String password, String user_name, java.sql.Date birth, String address, String gender, String phone_number, int user_siren_code) {
         this.user_id = user_id;
         this.password = password;
         this.user_name = user_name;
         this.birth = birth;
         this.address = address;
+        this.gender = gender;
         this.phone_number = phone_number;
         this.user_siren_code = user_siren_code;
         this.gender = gender;
     }
 
-    public void update(String user_id, String password, String user_name, java.sql.Date birth, String address, String phone_number, int user_siren_code) {
+    public void update(String user_id, String password, String user_name, java.sql.Date birth, String address, String gender, String phone_number, int user_siren_code) {
         this.user_id = user_id;
         this.password = password;
         this.user_name = user_name;
         this.birth = birth;
         this.address = address;
+        this.gender = gender;
         this.phone_number = phone_number;
         this.user_siren_code = user_siren_code;
     }
