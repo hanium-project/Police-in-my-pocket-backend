@@ -1,9 +1,9 @@
 package com.pocket.police.domain.user.service;
 
-import com.pocket.police.domain.user.entity.Account;
-import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.dto.AccountRequestDto;
 import com.pocket.police.domain.user.dto.AccountResponseDto;
+import com.pocket.police.domain.user.entity.Account;
+import com.pocket.police.domain.user.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,13 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor // 꼭 필요한 요소(final) 자동 생성
 @Service // 이 클래스는 서비스임을 알려줌
 public class AccountService {
-    @Autowired
     private final AccountRepository accountRepository;
 
     @Autowired

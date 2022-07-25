@@ -47,6 +47,7 @@ public class Account extends Timestamped {
         this.gender = gender;
         this.phone_number = phone_number;
         this.user_siren_code = user_siren_code;
+        this.gender = gender;
     }
 
     public void update(String user_id, String password, String user_name, java.sql.Date birth, String address, String gender, String phone_number, int user_siren_code) {
