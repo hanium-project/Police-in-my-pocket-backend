@@ -13,14 +13,14 @@ public class AccountMapper {
     public Account toEntity(AccountRequestDto requestDto) {
         //저장하는 클래스 toEntity(entity로 데이터를 전송)
         return Account.builder()
-                .user_id(requestDto.getUser_id())
+                .userId(requestDto.getUserId())
                 .password(requestDto.getPassword())
-                .user_name(requestDto.getUser_name())
+                .name(requestDto.getName())
                 .birth(requestDto.getBirth())
                 .address(requestDto.getAddress())
                 .gender(requestDto.getGender())
-                .phone_number(requestDto.getPhone_number())
-                .user_siren_code(requestDto.getUser_siren_code())
+                .phoneNumber(requestDto.getPhoneNumber())
+                .userSirenCode(requestDto.getUserSirenCode())
                 .build();
     }
 }

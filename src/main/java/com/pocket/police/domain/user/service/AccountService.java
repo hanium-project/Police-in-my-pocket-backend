@@ -32,7 +32,7 @@ public class AccountService {
         pw = passwordEncoder.encode(params.getPassword());
         params.setPassword(pw);
         Account entity = accountRepository.save(params.toEntity());
-        return entity.getUser_id();
+        return entity.getUserId();
     }
 
     @Transactional
@@ -47,21 +47,8 @@ public class AccountService {
     public String update(final String id, final AccountRequestDto params) {
 
         Account entity = accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
-        entity.update(params.getUser_id(), params.getPassword(), params.getUser_name(), params.getBirth(), params.getAddress(), params.getGender(),  params.getPhone_number(),
-                params.getUser_siren_code());
+        entity.update(params.getUserId(), params.getPassword(), params.getName(), params.getBirth(), params.getAddress(), params.getPhoneNumber(),
+                params.getUserSirenCode(), params.getGender());
         return id;
     }
-
-    @Transactional
-    public boolean login(final AccountRequestDto params) {
-        Account entity = accountRepository.findById(params.getUser_id()).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
-        return entity.login(params.getUser_id(), params.getPassword());
-    }
-
-    @Transactional
-    public String findpw(final AccountRequestDto params){
-        Account entity = accountRepository.findById(params.getUser_id()).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
-        return entity.getPassword();
-    }
-
 }
