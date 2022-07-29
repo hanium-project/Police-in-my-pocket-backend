@@ -1,11 +1,13 @@
 package com.pocket.police.domain.user.controller;
 
+import com.pocket.police.domain.user.dto.LoginTokenResponseDto;
 import com.pocket.police.domain.user.dto.AccountRequestDto;
-import com.pocket.police.domain.user.entity.Account;
 import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.service.AccountService;
 import com.pocket.police.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +23,7 @@ public class AccountController {
 
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-
-
+    private String userPw;
 
     @PostMapping("/users/signup")
     public String save(@RequestBody final AccountRequestDto params) {
@@ -40,24 +41,33 @@ public class AccountController {
         return id;
     }
 
-    @PostMapping("/users/password")
-    public String findPassword(@RequestBody AccountRequestDto requestDto) {
-        return accountService.findpw(requestDto);
-    }
 
-    @PostMapping("/users/signin")
-    public String login(@RequestBody Map<String, String> user) {
-        Account account = accountRepository.findByUserId(user.get("userId"))
-                .orElseThrow(() -> new IllegalArgumentException("없는 사용자 id : " + user.get("userId")));
-
+//    @PostMapping("/users/signin")
+//    public String login(@RequestBody Map<String, String> user) {
+//        Account account = accountRepository.findByUserId(user.get("userId"))
+//                .orElseThrow(() -> new IllegalArgumentException("없는 사용자 id : " + user.get("userId")));
+//
 //        if(!passwordEncoder.matches(user.get("password"), account.getPassword())) {
 //            throw new IllegalArgumentException("잘못된 비밀번호 입니다. " + user.get("password") + " / " + account.getPassword());
 //        }
+//
+//        return "사용자 권한 : " + account.getRoles() + " " + jwtTokenProvider.CreateToken(account.getUserId(), account.getRoles());
+//    }
 
-        if(!user.get("password").equals(account.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호 입니다. " + user.get("password") + " / " + account.getPassword());
-        }
+    @PostMapping("/users/signin")
+    public ResponseEntity<LoginTokenResponseDto> login(@RequestBody Map<String, String> user) {
+        userPw = user.get("password");
 
-        return "사용자 권한 : " + account.getRoles() + " " + jwtTokenProvider.CreateToken(account.getUserId(), account.getRoles());
+        LoginTokenResponseDto responseDto = accountService.login(user.get("userId"), user.get("password"));
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+
+        //return "사용자 권한 : " + account.getRoles() + " " + jwtTokenProvider.CreateToken(account.getUserId(), account.getRoles());
     }
+
+    @GetMapping("/users/rsignin")
+    public ResponseEntity<LoginTokenResponseDto> reLogin(@RequestParam("userId") String userId, @RequestParam("refreshToken") String refreshToken) {
+        LoginTokenResponseDto responseDto = accountService.reIssueToken(userId, userPw, refreshToken);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
 }

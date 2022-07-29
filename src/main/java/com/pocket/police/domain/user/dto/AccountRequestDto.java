@@ -11,7 +11,6 @@ import java.util.Collections;
 
 @Setter // Lombok이 getter, setter 자동 생성
 @Getter
-@Embeddable
 @RequiredArgsConstructor // 꼭 필요한 요소(final) 자동 생성
 //@NoArgsConstructor
 public class AccountRequestDto {

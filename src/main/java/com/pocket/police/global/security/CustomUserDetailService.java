@@ -1,9 +1,7 @@
 package com.pocket.police.global.security;
 
-import com.pocket.police.domain.user.entity.Account;
 import com.pocket.police.domain.user.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,6 +1,5 @@
 package com.pocket.police.domain.user.entity;
 
-import com.pocket.police.global.Timestamped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
 @Builder
 @Entity    //테이블과 링크될 클래스임을 나타냄
 @Table(name = "account")
-public class Account extends Timestamped implements UserDetails {
+public class Account implements UserDetails {
     @Id   //해당 테이블의 PK 필드를 나타냄
     private String userId;
 

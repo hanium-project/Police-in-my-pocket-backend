@@ -1,4 +1,4 @@
-package com.pocket.police.domain.danger_location.entity;
+package com.pocket.police.domain.safe_location.entity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,9 +8,11 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
-@Table(name="danger_location")
+@Table(name="safe_location")
 @Entity
-public class DangerLocation {
+
+
+public class SafeLocation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long location_id;
@@ -24,19 +26,19 @@ public class DangerLocation {
     @Column(name="location_title", nullable = false)
     private String locationTitle;
 
-    @Column(name="occurence_count", nullable = false)
-    private int occurenceCount;
-
     @Builder
-    public DangerLocation(Double latitude, Double longitude, String locationTitle, int occurenceCount) {
+    public SafeLocation(Long location_id, Double latitude, Double longitude, String locationTitle) {
+        this.location_id = location_id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.locationTitle = locationTitle;
-        this.occurenceCount = 0;
     }
 
-    public void update(int occurenceCount) {
-        occurenceCount++;
-        this.occurenceCount = occurenceCount;
+    public void update(Long location_id, Double latitude, Double longitude, String locationTitle) {
+        this.location_id = location_id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.locationTitle = locationTitle;
     }
+
 }
