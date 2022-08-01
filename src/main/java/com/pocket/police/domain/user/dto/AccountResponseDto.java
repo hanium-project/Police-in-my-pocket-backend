@@ -14,14 +14,14 @@ public class AccountResponseDto {
     private int user_siren_code;
 
     public AccountResponseDto(Account entity) {
-        this.user_id = entity.getUser_id();
+        this.user_id = entity.getUserId();
         this.password = entity.getPassword();
-        this.user_name = entity.getUser_name();
+        this.user_name = entity.getName();
         this.birth = entity.getBirth();
         this.address = entity.getAddress();
         this.gender = entity.getGender();
-        this.phone_number = entity.getPhone_number();
-        this.user_siren_code = entity.getUser_siren_code();
+        this.phone_number = entity.getPhoneNumber();
+        this.user_siren_code = entity.getUserSirenCode();
     }
 
 }

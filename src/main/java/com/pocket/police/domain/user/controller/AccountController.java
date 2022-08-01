@@ -1,10 +1,15 @@
 package com.pocket.police.domain.user.controller;
 
-import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.dto.AccountRequestDto;
+import com.pocket.police.domain.user.entity.Account;
+import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.service.AccountService;
+import com.pocket.police.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -13,6 +18,9 @@ public class AccountController {
 
     private final AccountRepository accountRepository;
     private final AccountService accountService;
+
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/users/signup")
     public String save(@RequestBody final AccountRequestDto params) {
@@ -30,21 +38,16 @@ public class AccountController {
         return id;
     }
 
-    @GetMapping("/users/login")
-    public String login() {
-        return "login";
-    }
+    @PostMapping("/users/signin")
+    public String login(@RequestBody Map<String, String> user) {
+        Account account = accountRepository.findByUserId(user.get("userId"))
+                .orElseThrow(() -> new IllegalArgumentException("없는 사용자 id : " + user.get("userId")));
 
-    @PostMapping("/users/login")
-    public String loginId(@RequestBody AccountRequestDto requestDto) {
-        if(accountService.login(requestDto)){
-            return "로그인 성공";
+        if(!passwordEncoder.matches(user.get("password"), account.getPassword())) {
+            throw new IllegalArgumentException("잘못된 비밀번호 입니다. " + user.get("password") + " / " + account.getPassword());
         }
-        return "로그인 실패";
+
+        return "사용자 권한 : " + account.getRoles() + " " + jwtTokenProvider.CreateToken(account.getUserId(), account.getRoles());
     }
 
-    @PostMapping("/users/password")
-    public String findPassword(@RequestBody AccountRequestDto requestDto) {
-        return accountService.findpw(requestDto);
-    }
 }
