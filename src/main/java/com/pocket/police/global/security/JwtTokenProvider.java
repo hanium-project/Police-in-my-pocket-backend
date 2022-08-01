@@ -6,7 +6,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +25,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
+@Getter
 public class JwtTokenProvider {
     private String secretKey = "policeInMyPocket";
     private static final String AUTHORITIES_KEY = "auth";
@@ -91,6 +94,15 @@ public class JwtTokenProvider {
         }
     }
 
+    //재발급 토큰 만료 확인
+    public void checkRefreshToken(String userId, String refreshToken) {
+        String redisRefreshToken = (String) redisService.getValues(userId);
+
+        if(!refreshToken.equals(redisRefreshToken)) {
+            throw new BadCredentialsException("token invalid");
+        }
+    }
+
     //header에서 token값을 가져온다
     //header: JWT를 검증하는 암호화 알고리즘, 토큰 타입 등이 포함된다
     public String resolveToken(HttpServletRequest request) {
@@ -100,5 +112,12 @@ public class JwtTokenProvider {
         }
         return null;
        // return request.getHeader("X-AUTH-TOKEN");    //X-AUTH-TOKEN이란?
+    }
+
+    public Long getExpiration(String accessToken) {
+        Date expiration = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(accessToken).getBody().getExpiration();
+        Long now = new Date().getTime();
+
+        return (expiration.getTime() - now);
     }
 }

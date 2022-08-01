@@ -1,5 +1,6 @@
 package com.pocket.police.global.security;
 
+import com.pocket.police.global.config.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+    private final RedisService redisService;
 
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
@@ -57,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                // .logoutSuccessUrl("/api/v1/users/msg")
                // .and()
                 //.requestMatcher(new RequestHeaderRequestMatcher("Authorization"))
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisService),
                         UsernamePasswordAuthenticationFilter.class);
     }
 }

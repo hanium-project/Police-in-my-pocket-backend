@@ -5,13 +5,19 @@ import com.pocket.police.domain.user.dto.AccountRequestDto;
 import com.pocket.police.domain.user.dto.AccountResponseDto;
 import com.pocket.police.domain.user.entity.Account;
 import com.pocket.police.domain.user.repository.AccountRepository;
+import com.pocket.police.global.config.RedisService;
 import com.pocket.police.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +26,8 @@ import java.util.stream.Collectors;
 public class AccountService {
     private final AccountRepository accountRepository;
     private final JwtTokenProvider jwtTokenProvider;
+
+    private final RedisService redisService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -74,8 +82,31 @@ public class AccountService {
             throw new IllegalArgumentException("잘못된 비밀번호 입니다.");
         }
 
+        jwtTokenProvider.checkRefreshToken(userId, refreshToken);
         String accessToken = jwtTokenProvider.createAccessToken(account.getUserId(), account.getRoles());
 
         return new LoginTokenResponseDto(accessToken, refreshToken);
+    }
+
+    public String logout(String accessToken) {
+        // AccessToken 검증하기 (유효성 검증)
+        if(!jwtTokenProvider.validateToken(accessToken)) {
+            return "이미 만료된 토큰입니다.";
+        }
+
+        // AccessToken으로부터 user email을 가져옴
+        Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+
+        // Redis에서 해당 email로 저장된 refreshToken이 있는지 확인후 있으면 삭제
+        // 여기서 주의해야할 건 refresh token을 삭제하는 것이지 access token이 아님을 기억할것
+        if(redisService.getValues(authentication.getName()) != null) {
+            redisService.deleteValues(authentication.getName());
+        }
+
+        // 해당 토큰의 유효시간을 가져와 블랙리스트로 저장
+        Long expiration = jwtTokenProvider.getExpiration(accessToken);
+        redisService.setValues(authentication.getName() + " is logout", accessToken, Duration.ofMillis(expiration));
+
+        return "로그아웃 되었습니다.";
     }
 }

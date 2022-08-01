@@ -9,20 +9,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
 public class AccountController {
-
     private final AccountRepository accountRepository;
     private final AccountService accountService;
 
-    private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
     private String userPw;
 
     @PostMapping("/users/signup")
@@ -41,19 +41,6 @@ public class AccountController {
         return id;
     }
 
-
-//    @PostMapping("/users/signin")
-//    public String login(@RequestBody Map<String, String> user) {
-//        Account account = accountRepository.findByUserId(user.get("userId"))
-//                .orElseThrow(() -> new IllegalArgumentException("없는 사용자 id : " + user.get("userId")));
-//
-//        if(!passwordEncoder.matches(user.get("password"), account.getPassword())) {
-//            throw new IllegalArgumentException("잘못된 비밀번호 입니다. " + user.get("password") + " / " + account.getPassword());
-//        }
-//
-//        return "사용자 권한 : " + account.getRoles() + " " + jwtTokenProvider.CreateToken(account.getUserId(), account.getRoles());
-//    }
-
     @PostMapping("/users/signin")
     public ResponseEntity<LoginTokenResponseDto> login(@RequestBody Map<String, String> user) {
         userPw = user.get("password");
@@ -68,6 +55,17 @@ public class AccountController {
     public ResponseEntity<LoginTokenResponseDto> reLogin(@RequestParam("userId") String userId, @RequestParam("refreshToken") String refreshToken) {
         LoginTokenResponseDto responseDto = accountService.reIssueToken(userId, userPw, refreshToken);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/users/signout")
+    public String logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+            //return token.substring(7);
+            return accountService.logout(token.substring(7));
+        }
+        return "존재하지 않는 사용자입니다.";
     }
 
 }
