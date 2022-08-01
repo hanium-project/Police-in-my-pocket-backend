@@ -4,6 +4,8 @@ import com.pocket.police.domain.user.dto.LoginTokenResponseDto;
 import com.pocket.police.domain.user.dto.AccountRequestDto;
 import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.dto.AccountRequestDto;
+import com.pocket.police.domain.user.entity.Account;
+import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.service.AccountService;
 import com.pocket.police.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
