@@ -32,9 +32,6 @@ public class AccountService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     @Transactional
     public String save(final AccountRequestDto params) {
         String pw = params.getPassword();
