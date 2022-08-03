@@ -1,5 +1,6 @@
 package com.pocket.police.global.security;
 
+import com.pocket.police.global.config.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {
     private final JwtTokenProvider jwtTokenProvider;
+    private final RedisService redisService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -25,7 +27,9 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             //토큰으로부터 유저의 정보를 받아옴
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             // SecurityContext에 유저 정보 객체 저장
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String isLogoutToken = redisService.getValues(authentication.getName() + " is logout");
+            if(isLogoutToken == null)
+                SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         chain.doFilter(request, response);
