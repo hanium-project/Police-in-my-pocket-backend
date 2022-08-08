@@ -58,6 +58,7 @@ public class AccountService {
         return id;
     }
 
+
 //    @Transactional
     public LoginTokenResponseDto login(String userId, String password) {
         Account account = accountRepository.findByUserId(userId)
@@ -108,5 +109,17 @@ public class AccountService {
         redisService.setValues(authentication.getName() + " is logout", accessToken, Duration.ofMillis(expiration));
 
         return "로그아웃 되었습니다.";
+    }
+
+    public boolean userEmailCheck(String userId, String userName) {
+
+        Account account = accountRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("없는 사용자 id : " + userId));
+        if(account != null && account.getName().equals(userName)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
