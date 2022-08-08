@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Table(name = "account")
 public class Account implements UserDetails {
     @Id   //해당 테이블의 PK 필드를 나타냄
+    @Column(name = "user_id", nullable = false)
     private String userId;
 
     @Column(name = "password", nullable = false)  //해당 테이블의 칼럼을 나타냄
@@ -73,6 +74,14 @@ public class Account implements UserDetails {
         this.gender = gender;
     }
 
+<<<<<<< HEAD
+    public void updatePassword(String newPassword) {
+        this.password = newPassword;
+=======
+    public void updatePw(String password){
+        this.password = password;
+>>>>>>> e871377abdf8f74497ed0d1ea6fe1ecdfef6c307
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {  //계정이 가진 권한 목록 리턴
         return this.roles.stream()
