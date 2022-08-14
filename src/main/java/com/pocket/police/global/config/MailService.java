@@ -20,10 +20,6 @@ public class MailService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
-<<<<<<< HEAD
-=======
-
->>>>>>> e871377abdf8f74497ed0d1ea6fe1ecdfef6c307
     private final JavaMailSender mailSender;
     private static final String FROM_ADDRESS = "wisjang1@naver.com";
 
@@ -35,7 +31,6 @@ public class MailService {
         dto.setTitle(userName + "님의 폴인포 임시비밀번호 안내 이메일 입니다.");
         dto.setMessage("안녕하세요. 폴인포 임시비밀번호 안내 관련 이메일 입니다." + "[" + userName + "]" + "님의 임시 비밀번호는 "
                 + str + " 입니다.");
-<<<<<<< HEAD
         updatePassword(userId, str);
         return dto;
     }
@@ -45,16 +40,6 @@ public class MailService {
         Account account = accountRepository.findByUserId(userId).get();
         account.updatePassword(pw);
         accountRepository.save(account);
-=======
-        updatePassword(str, userId);
-        return dto;
-    }
-
-    public void updatePassword(String password, String userId) {
-//        String pw = passwordEncoder.encode(password);
-        Account account = accountRepository.findByUserId(userId).get();
-        account.updatePw(password);
->>>>>>> e871377abdf8f74497ed0d1ea6fe1ecdfef6c307
     }
 
 

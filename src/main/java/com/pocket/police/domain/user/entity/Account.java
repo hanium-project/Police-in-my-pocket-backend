@@ -74,14 +74,10 @@ public class Account implements UserDetails {
         this.gender = gender;
     }
 
-<<<<<<< HEAD
     public void updatePassword(String newPassword) {
         this.password = newPassword;
-=======
-    public void updatePw(String password){
-        this.password = password;
->>>>>>> e871377abdf8f74497ed0d1ea6fe1ecdfef6c307
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {  //계정이 가진 권한 목록 리턴
         return this.roles.stream()

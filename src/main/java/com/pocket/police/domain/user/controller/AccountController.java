@@ -76,11 +76,7 @@ public class AccountController {
     }
 
     //Email과 name의 일치여부를 check하는 컨트롤러
-<<<<<<< HEAD
-    @GetMapping("/users/findpw")
-=======
     @GetMapping("/users/findPw")
->>>>>>> e871377abdf8f74497ed0d1ea6fe1ecdfef6c307
     public @ResponseBody Map<String, Boolean> pw_find(@RequestBody Map<String, String> user){
         Map<String,Boolean> json = new HashMap<>();
         boolean pwFindCheck = accountService.userEmailCheck(user.get("userId"), user.get("name"));
@@ -91,11 +87,7 @@ public class AccountController {
     }
 
     //등록된 이메일로 임시비밀번호를 발송하고 발송된 임시비밀번호로 사용자의 pw를 변경하는 컨트롤러
-<<<<<<< HEAD
     @PostMapping("/users/findpw/sendemail")
-=======
-    @PostMapping("/users/findPw/sendEmail")
->>>>>>> e871377abdf8f74497ed0d1ea6fe1ecdfef6c307
     public void sendEmail(@RequestBody Map<String, String> user){
         MailDto dto = mailService.createMailAndChangePassword(user.get("userId"), user.get("name"));
         mailService.mailSend(dto);
