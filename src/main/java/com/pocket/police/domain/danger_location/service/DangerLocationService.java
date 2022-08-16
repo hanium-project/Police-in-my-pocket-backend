@@ -8,9 +8,14 @@ import com.pocket.police.domain.danger_location.entity.DangerLocation;
 import com.pocket.police.domain.danger_location.repository.DangerLocationRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
 
 @AllArgsConstructor
@@ -34,5 +39,26 @@ public class DangerLocationService {
     @Transactional
     public List<DangerLocation> findAll() {
         return dangerLocationRepository.findAll();
+    }
+
+    @Transactional
+    public void sendEmergencyMessage(String name, String phoneNum) {
+        String api_key = "NCSWPIJWYOHCUZAG";
+        String api_secrete = "Z7XWL26PH1L5KFE1NJ1WLCMWX3BKIVKY";
+        Message msg = new Message(api_key, api_secrete);
+
+        HashMap<String, String> msgParam = new HashMap<String, String>();
+        msgParam.put("to", "01024907323");
+        msgParam.put("from", phoneNum);
+        msgParam.put("type", "SMS");
+        msgParam.put("text", "한이음 신고 문자 테스트 : 긴급 신고 발생");
+
+        try {
+            JSONObject object = (JSONObject) msg.send(msgParam);
+            System.out.println(object.toString());
+        } catch (CoolsmsException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCode());
+        }
     }
 }

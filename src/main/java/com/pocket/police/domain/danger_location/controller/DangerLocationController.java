@@ -28,4 +28,10 @@ public class DangerLocationController {
         return dangerLocationService.findAll();
     }
 
+    @PostMapping("/{user_id}/{contact_id}")
+    public String sendEmergencySMS(@PathVariable String user_id, @PathVariable String contact_id) {
+        dangerLocationService.sendEmergencyMessage(user_id, contact_id);
+        return "전송되었습니다.";
+    }
+
 }
