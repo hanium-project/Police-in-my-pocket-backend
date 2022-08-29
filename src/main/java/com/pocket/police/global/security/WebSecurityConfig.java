@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //.antMatchers("/api/v1/**").permitAll()
-                .antMatchers("/api/v1/users/**").permitAll()
+                .antMatchers( "/api/v1/users/**", "/swagger-ui/**", "/v3/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 //.logout()
