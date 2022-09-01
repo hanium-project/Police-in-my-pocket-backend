@@ -16,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.time.Duration;
 import java.util.List;
@@ -121,5 +124,17 @@ public class AccountService {
         else {
             return false;
         }
+    }
+
+    public String tokenToUserId(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        String userToken = null;
+        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            userToken = bearerToken.substring(7);
+        }
+
+        String user_id = jwtTokenProvider.getUserId(userToken);
+
+        return user_id;
     }
 }
