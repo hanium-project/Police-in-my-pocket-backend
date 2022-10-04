@@ -34,7 +34,7 @@ public class UserContactService {
         return entity.getContactId();
     }
     @Transactional
-    public String findcontact(final Account account,  final UserContactRequestDto params){
+    public String findcontact(final Account account){
         UserContact entity = userContactRepository.findByAccount(account);
         return entity.getContact();
     }

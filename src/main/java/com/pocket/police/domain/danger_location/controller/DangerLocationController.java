@@ -5,9 +5,13 @@ import com.pocket.police.domain.danger_location.dto.request.DangerLocationReques
 import com.pocket.police.domain.danger_location.dto.response.DangerLocationResponseDto;
 import com.pocket.police.domain.danger_location.entity.DangerLocation;
 import com.pocket.police.domain.danger_location.service.DangerLocationService;
+import com.pocket.police.domain.user.service.AccountService;
+import com.pocket.police.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,6 +20,7 @@ import java.util.List;
 public class DangerLocationController {
     private final DangerLocationService dangerLocationService;
     private final DangerLocationMapper dangerLocationMapper;
+    private final AccountService accountService;
 
     @PostMapping
     public DangerLocationResponseDto create(@RequestBody DangerLocationRequestDto requestDto) {
@@ -28,10 +33,11 @@ public class DangerLocationController {
         return dangerLocationService.findAll();
     }
 
-    @PostMapping("/{user_id}/{contact_id}")
-    public String sendEmergencySMS(@PathVariable String user_id, @PathVariable String contact_id) {
-        dangerLocationService.sendEmergencyMessage(user_id, contact_id);
-        return "전송되었습니다.";
+    @PostMapping("/{contact}")
+    public String sendEmergencySMS(HttpServletRequest request, @PathVariable String contact) {
+        String user_id = accountService.tokenToUserId(request);
+        dangerLocationService.sendEmergencyMessage(user_id, contact);
+        return user_id;
     }
 
 }

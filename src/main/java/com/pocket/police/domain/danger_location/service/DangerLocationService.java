@@ -51,7 +51,7 @@ public class DangerLocationService {
         msgParam.put("to", "01024907323");
         msgParam.put("from", phoneNum);
         msgParam.put("type", "SMS");
-        msgParam.put("text", "한이음 신고 문자 테스트 : 긴급 신고 발생");
+        msgParam.put("text", name + " - 한이음 신고 문자 테스트 : 긴급 신고 발생");
 
         try {
             JSONObject object = (JSONObject) msg.send(msgParam);
