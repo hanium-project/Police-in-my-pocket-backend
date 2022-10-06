@@ -11,16 +11,16 @@ import lombok.Setter;
 @Builder
 public class UserContactRequestDto {
     public Account account;
-    public String contact_1;
-    public String contact_2;
-    public String contact_3;
+    public String name;
+    public String contact;
+    public String relationship;
 
     public UserContact toEntity() {
         return UserContact.builder()
                 .account(account)
-                .contact_1(contact_1)
-                .contact_2(contact_2)
-                .contact_3(contact_3)
+                .name(name)
+                .contact(contact)
+                .relationship(relationship)
                 .build();
     }
 }
