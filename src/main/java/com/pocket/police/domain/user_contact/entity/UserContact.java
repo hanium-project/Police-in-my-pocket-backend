@@ -23,33 +23,26 @@ public class UserContact extends Timestamped {
     @JoinColumn(name = "user_id")
     private Account account;
 
-    @Column(name="contact_1")
-    private String contact_1;
+    @Column(name="contact")
+    private String contact;
 
-    @Column(name="contact_2")
-    private String contact_2;
+    @Column(name="name")
+    private String name;
 
-    @Column(name="contact_3")
-    private String contact_3;
+    @Column(name="relationship")
+    private String relationship;
 
     @Builder
-    public UserContact ( Account account, String contact_1, String contact_2, String contact_3) {
+    public UserContact ( Account account, String name, String contact, String relationship) {
         this.account = account;
-        this.contact_1 = contact_1;
-        this.contact_2 = contact_2;
-        this.contact_3 = contact_3;
+        this.name = name;
+        this.contact = contact;
+        this.relationship = relationship;
     }
 
-    public void update(String contact_1, String contact_2, String contact_3) {
-        this.contact_1 = contact_1;
-        this.contact_2 = contact_2;
-        this.contact_3 = contact_3;
+    public void update(String name, String contact, String relationship) {
+        this.name = name;
+        this.contact = contact;
+        this.relationship = relationship;
     }
-
-    public String getContact(){
-        String str = contact_1 + ", " + contact_2 + ", " + contact_3;
-        return str;
-    }
-
-
 }

@@ -8,16 +8,16 @@ import lombok.Builder;
 @Builder
 public class UserContactResponseDto {
     public Account account;
-    public String contact_1;
-    public String contact_2;
-    public String contacct_3;
+    public String contact;
+    public String relationship;
+    public String name;
 
     public UserContact fromEntity() {
         return UserContact.builder()
                 .account(account)
-                .contact_1(contact_1)
-                .contact_2(contact_2)
-                .contact_3(contacct_3)
+                .name(name)
+                .relationship(relationship)
+                .contact(contact)
                 .build();
     }
 }

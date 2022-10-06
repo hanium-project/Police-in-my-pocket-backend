@@ -20,17 +20,17 @@ public class UserContactService {
     private final UserContactRepository userContactRepository;
 
     @Transactional
-    public Long save(final Account account, final UserContactRequestDto params) {
+    public UserContact save(final Account account, final UserContactRequestDto params) {
         params.setAccount(account);
         UserContact entity = userContactRepository.save(params.toEntity());
-        return entity.getContactId();
+        return entity;
     }
 
 
     @Transactional
     public Long update(final Account account, final UserContactRequestDto params, final Long contact_id) {
         UserContact entity = userContactRepository.findById(contact_id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));;
-        entity.update(params.getContact_1(), params.getContact_2(), params.getContact_3());
+        entity.update(params.getName(), params.getContact(), params.getRelationship());
         return entity.getContactId();
     }
     @Transactional

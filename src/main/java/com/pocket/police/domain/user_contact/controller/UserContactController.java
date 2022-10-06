@@ -4,6 +4,7 @@ import com.pocket.police.domain.user.entity.Account;
 import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.service.AccountService;
 import com.pocket.police.domain.user_contact.dto.UserContactRequestDto;
+import com.pocket.police.domain.user_contact.entity.UserContact;
 import com.pocket.police.domain.user_contact.repository.UserContactRepository;
 import com.pocket.police.domain.user_contact.service.UserContactService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class UserContactController {
     }
 
     @PostMapping
-    public Long save(HttpServletRequest request,@RequestBody UserContactRequestDto params) {
+    public UserContact save(HttpServletRequest request, @RequestBody UserContactRequestDto params) {
         String user_id = accountService.tokenToUserId(request);
         Account account = accountRepository.findById(user_id).get();
         return userContactService.save(account, params);

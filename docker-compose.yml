@@ -1,21 +1,26 @@
 version: '3'
 
 services:
-  mysql-db:
+  mysql:
     image: mysql:8.0
+    container_name: mysql
     environment:
       MYSQL_DATABASE: polin
       MYSQL_ROOT_PASSWORD: polin1111
       MYSQL_ROOT_HOST: '%'
     volumes:
-      - ./db/data:/var/lib/mysql:rw
+      - mysql:/var/lib/mysql
     ports:
       - "3307:3306"
     restart: always
 
-  redis-db:
+  redis:
     image: redis:7.0
-    # command: redis-server --requirepass changeme --port 6379
-    # hostname: redis6379
+    container_name: redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis:/val/lib/redis/data
+volumes:
+  mysql:
+  redis:
