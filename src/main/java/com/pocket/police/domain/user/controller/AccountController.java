@@ -31,7 +31,7 @@ public class AccountController {
     }
 
     @PutMapping("/{userid}")
-    public String updateAccount (@PathVariable ("userid") String userId, @RequestBody AccountRequestDto accountRequestDto) {
+    public String updateAccount (@PathVariable("userid") String userId, @RequestBody AccountRequestDto accountRequestDto) {
         return accountService.update (userId, accountRequestDto);
     }
 

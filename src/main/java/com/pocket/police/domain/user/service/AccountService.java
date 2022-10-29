@@ -8,6 +8,7 @@ import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.global.service.RedisService;
 import com.pocket.police.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,11 +27,14 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisService redisService;
-    PasswordEncoder passwordEncoder;
+    // @Autowired
+    final PasswordEncoder passwordEncoder;    // 의존성 주입이 안되면 nullException 생김
 
     @Transactional
     public String save (final AccountRequestDto accountRequestDto) {
+        // System.out.println(accountRequestDto.getPassword());
         String password = passwordEncoder.encode(accountRequestDto.getPassword());
+        System.out.println(password);
         accountRequestDto.setPassword(password);
         Account entity = accountRepository.save(accountRequestDto.toEntity());
         return entity.getUserId();
