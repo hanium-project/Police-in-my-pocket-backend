@@ -1,5 +1,6 @@
 package com.pocket.police.domain.user.entity;
 
+import com.pocket.police.global.common.Timestamped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +21,8 @@ import java.util.stream.Collectors;
 @Builder
 @Entity    //테이블과 링크될 클래스임을 나타냄
 @Table(name = "account")
-public class Account implements UserDetails {
+public class Account extends Timestamped implements UserDetails {  //extends가 먼저 나온다
+    // 현재 pk가 문자열로 되어있지만, DB 효율성을 위해 정수형으로 수정할 필요가 있다!
     @Id   //해당 테이블의 PK 필드를 나타냄
     @Column(name = "user_id", nullable = false)
     private String userId;

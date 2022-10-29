@@ -30,7 +30,6 @@ public class AccountService {
 
     @Transactional
     public String save (final AccountRequestDto accountRequestDto) {
-        // String pw = accountRequestDto.getPassword();
         String password = passwordEncoder.encode(accountRequestDto.getPassword());
         accountRequestDto.setPassword(password);
         Account entity = accountRepository.save(accountRequestDto.toEntity());

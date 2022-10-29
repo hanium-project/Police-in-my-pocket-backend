@@ -1,17 +1,16 @@
 package com.pocket.police.domain.danger_location.entity;
 
+import com.pocket.police.global.common.Timestamped;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Getter
 @NoArgsConstructor
 @Table(name="danger_location")
 @Entity
-public class DangerLocation {
+public class DangerLocation extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long locationId;

@@ -1,11 +1,10 @@
 package com.pocket.police.domain.user_contact.entity;
 
 import com.pocket.police.domain.user.entity.Account;
-import com.pocket.police.global.Timestamped;
+import com.pocket.police.global.common.Timestamped;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Getter  //클래스 내의 모든 필드의 getter 생성
