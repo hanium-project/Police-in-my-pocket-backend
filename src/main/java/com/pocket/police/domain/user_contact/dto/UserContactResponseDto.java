@@ -12,7 +12,7 @@ public class UserContactResponseDto {
     public String relationship;
     public String name;
 
-    public UserContact fromEntity() {
+    public UserContact fromEntity () {
         return UserContact.builder()
                 .account(account)
                 .name(name)

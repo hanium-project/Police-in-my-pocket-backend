@@ -1,4 +1,4 @@
-package com.pocket.police.global.security;
+package com.pocket.police.global.status_response;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

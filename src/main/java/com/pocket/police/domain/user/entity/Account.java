@@ -43,43 +43,30 @@ public class Account implements UserDetails {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "user_siren_code", nullable = true)
-    private int userSirenCode;
+    @Column(name = "siren_code", nullable = true)
+    private Integer sirenCode;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-
-//    @Builder  //해당 클래스의 빌더 패턴 클래스를 생성
-//    public Account(String userId, String password, String name, java.sql.Date birth, String gender, String address, String phoneNumber, int userSirenCode) {
-//        this.userId = userId;
-//        this.password = password;
-//        this.name = name;
-//        this.birth = birth;
-//        this.address = address;
-//        this.phoneNumber = phoneNumber;
-//        this.userSirenCode = userSirenCode;
-//        this.gender = gender;
-//    }
-
-    public void update(String userId, String password, String userName, java.sql.Date birth, String address, String phoneNumber, int userSirenCode, String gender) {
+    public void update (String userId, String password, String userName, java.sql.Date birth, String address, String phoneNumber, Integer sirenCode, String gender) {
         this.userId = userId;
         this.password = password;
         this.name = userName;
         this.birth = birth;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.userSirenCode = userSirenCode;
+        this.sirenCode = sirenCode;
         this.gender = gender;
     }
 
-    public void updatePassword(String newPassword) {
+    public void updatePassword (String newPassword) {
         this.password = newPassword;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {  //계정이 가진 권한 목록 리턴
+    public Collection<? extends GrantedAuthority> getAuthorities () {  //계정이 가진 권한 목록 리턴
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
@@ -90,22 +77,22 @@ public class Account implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
+    public boolean isAccountNonExpired () {
         return true;
     }
 
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonLocked () {
         return true;
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {
+    public boolean isCredentialsNonExpired () {
         return true;
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled () {
         return true;
     }
 }

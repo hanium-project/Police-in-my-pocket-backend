@@ -3,7 +3,6 @@ package com.pocket.police.domain.user_location.controller;
 import com.pocket.police.domain.user.entity.Account;
 import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.service.AccountService;
-import com.pocket.police.domain.user_contact.dto.UserContactRequestDto;
 import com.pocket.police.domain.user_location.dto.UserLocationRequestDto;
 import com.pocket.police.domain.user_location.repository.UserLocationRepository;
 import com.pocket.police.domain.user_location.service.UserLocationService;
@@ -23,32 +22,31 @@ public class UserLocationController {
     private final AccountService accountService;
 
     @GetMapping
-    public String findContact(HttpServletRequest request, @RequestBody UserLocationRequestDto requestDto) {
-        String user_id = accountService.tokenToUserId(request);
-        Account account = accountRepository.findById(user_id).get();
+    public String findContact (HttpServletRequest request, @RequestBody UserLocationRequestDto requestDto) {
+        String userId = accountService.tokenToUserId(request);
+        Account account = accountRepository.findById(userId).get();
         return userLocationService.findLocation(account, requestDto);
     }
 
     @PostMapping
-    public Long save(HttpServletRequest request,@RequestBody UserLocationRequestDto params) {
-        String user_id = accountService.tokenToUserId(request);
-        Account account = accountRepository.findById(user_id).get();
-        return userLocationService.save(account, params);
+    public Long save (HttpServletRequest request,@RequestBody UserLocationRequestDto requestDto) {
+        String userId = accountService.tokenToUserId(request);
+        Account account = accountRepository.findById(userId).get();
+        return userLocationService.save(account, requestDto);
     }
 
     @PutMapping("/{location_id}")
-    public Long update(HttpServletRequest request, @RequestBody UserLocationRequestDto params, @PathVariable("location_id") Long location_id) {
-        String user_id = accountService.tokenToUserId(request);
-        Account account = accountRepository.findById(user_id).get();
-        params.setAccount(account);
-        return userLocationService.update(account, params, location_id
-        );
+    public Long update (HttpServletRequest request, @RequestBody UserLocationRequestDto requestDto, @PathVariable("location_id") Long locationId) {
+        String userId = accountService.tokenToUserId(request);
+        Account account = accountRepository.findById(userId).get();
+        requestDto.setAccount(account);
+        return userLocationService.update(account, requestDto, locationId);
     }
 
     @DeleteMapping("/{location_id}")
-    public Long deleteContact(@PathVariable ("location_id") Long id) {
-        userLocationRepository.deleteById(id); // 값 삭제
-        return id;
+    public Long deleteContact (@PathVariable ("location_id") Long locationId) {
+        userLocationRepository.deleteById(locationId); // 값 삭제
+        return locationId;
     }
 
 }

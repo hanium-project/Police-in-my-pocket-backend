@@ -7,22 +7,22 @@ import lombok.Builder;
 @Builder
 public class UserLocationResponseDto {
     public Account account;
-    public String start_location_title;
-    public Double start_latitude;
-    public Double start_longitude;
-    public String end_location_title;
-    public Double end_latitude;
-    public Double end_longitude;
+    public String startLocationTitle;
+    public Double startLatitude;
+    public Double startLongitude;
+    public String endLocationTitle;
+    public Double endLatitude;
+    public Double endLongitude;
 
-    public UserLocation fromEntity() {
+    public UserLocation fromEntity () {
         return UserLocation.builder()
                 .account(account)
-                .start_location_title(start_location_title)
-                .start_latitude(start_latitude)
-                .start_longitude(start_longitude)
-                .end_location_title(end_location_title)
-                .end_latitude(end_latitude)
-                .end_longitude(end_longitude)
+                .startLocationTitle(startLocationTitle)
+                .startLatitude(startLatitude)
+                .startLongitude(startLongitude)
+                .endLocationTitle(endLocationTitle)
+                .endLatitude(endLatitude)
+                .endLongitude(endLongitude)
                 .build();
     }
 }

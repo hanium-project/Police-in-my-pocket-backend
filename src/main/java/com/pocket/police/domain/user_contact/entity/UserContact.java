@@ -33,14 +33,14 @@ public class UserContact extends Timestamped {
     private String relationship;
 
     @Builder
-    public UserContact ( Account account, String name, String contact, String relationship) {
+    public UserContact (Account account, String name, String contact, String relationship) {
         this.account = account;
         this.name = name;
         this.contact = contact;
         this.relationship = relationship;
     }
 
-    public void update(String name, String contact, String relationship) {
+    public void update (String name, String contact, String relationship) {
         this.name = name;
         this.contact = contact;
         this.relationship = relationship;

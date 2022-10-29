@@ -14,20 +14,16 @@ import java.util.Collections;
 @RequiredArgsConstructor // 꼭 필요한 요소(final) 자동 생성
 //@NoArgsConstructor
 public class AccountRequestDto {
-
     private String userId;
     private String password;
     private String name;
     private java.sql.Date birth;
     private String address;
     private String phoneNumber;
-    private int userSirenCode;
-
+    private Integer sirenCode;
     private String gender;
 
-    //private String roles;
-
-    public Account toEntity(){
+    public Account toEntity (){
         return Account.builder()
                 .userId(userId)
                 .password(password)
@@ -35,17 +31,17 @@ public class AccountRequestDto {
                 .birth(birth)
                 .address(address)
                 .phoneNumber(phoneNumber)
-                .userSirenCode(userSirenCode)
+                .sirenCode(sirenCode)
                 .gender(gender)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
     }
 
-    public String getUserId() {
+    public String getUserId () {
         return userId;
     }
 
-    public String getPassword() {
+    public String getPassword () {      // 이 부분은 보안 문제가 있기 때문에 수정이 조금 필요할 것 같다
         return password;
     }
 }

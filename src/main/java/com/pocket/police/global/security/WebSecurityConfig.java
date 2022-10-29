@@ -1,6 +1,8 @@
 package com.pocket.police.global.security;
 
-import com.pocket.police.global.config.RedisService;
+import com.pocket.police.global.service.RedisService;
+import com.pocket.police.global.status_response.JwtAccessDeniedHandler;
+import com.pocket.police.global.status_response.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,31 +17,29 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor  //final, @notNull이 붙은 필드의 생성자를 자동으로 생성
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
     private final RedisService redisService;
 
 //    @Bean
-//    public PasswordEncoder passwordEncoder() {
+//    public PasswordEncoder passwordEncoder() {    구버전이라(?) 사용이 불가능했다
 //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //    }
 
     @Bean
-    PasswordEncoder getPasswordEncoder() {
+    PasswordEncoder getPasswordEncoder () {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    public AuthenticationManager authenticationManagerBean () throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure (HttpSecurity http) throws Exception {
         http.httpBasic().disable()   //http 기본 설정 해제
                 .cors().and()
                 .csrf().disable()   //csrf 보안 토큰 disable 처리

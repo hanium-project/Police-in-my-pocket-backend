@@ -10,5 +10,5 @@ public class DangerLocationResponseDto {
 
     public String locationTitle;
 
-    public int occurrenceCount;
+    public Integer occurrenceCount;
 }
