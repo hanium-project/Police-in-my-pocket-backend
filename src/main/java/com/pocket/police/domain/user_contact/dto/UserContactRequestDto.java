@@ -15,7 +15,7 @@ public class UserContactRequestDto {
     public String contact;
     public String relationship;
 
-    public UserContact toEntity() {
+    public UserContact toEntity () {
         return UserContact.builder()
                 .account(account)
                 .name(name)

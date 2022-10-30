@@ -1,9 +1,9 @@
 package com.pocket.police.domain.safe_location.entity;
 
+import com.pocket.police.global.common.Timestamped;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Getter
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 
 
-public class SafeLocation {
+public class SafeLocation extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long location_id;

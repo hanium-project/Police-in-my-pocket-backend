@@ -21,6 +21,7 @@ services:
       - "6379:6379"
     volumes:
       - redis:/val/lib/redis/data
+
 volumes:
   mysql:
   redis:

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Repository
 public interface DangerLocationRepository extends JpaRepository<DangerLocation, Long> {
-    DangerLocation findByLatitudeAndLongitude(Double latitude, Double longitude);
+    DangerLocation findByLatitudeAndLongitude (Double latitude, Double longitude);
     //해당 메소드를 정의한 후 service로 이용하지 않으면 오류가 난다.
     /*
         메소드 이름으로 쿼리를 생성할 수 있다

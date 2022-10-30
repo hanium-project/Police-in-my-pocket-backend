@@ -14,25 +14,25 @@ import javax.transaction.Transactional;
 @Service // 이 클래스는 서비스임을 알려줌
 public class UserLocationService {
 
-    @Autowired
+   // @Autowired    requiredArgsConstructor 이 있으면 사용하지 않아도 괜찮다.
     UserLocationRepository userLocationRepository;
 
     @Transactional
-    public Long save(final Account account, final UserLocationRequestDto params) {
-        params.setAccount(account);
-       UserLocation entity = userLocationRepository.save(params.toEntity());
-        return entity.getLocation_id();
+    public Long save(final Account account, final UserLocationRequestDto userLocationRequestDto) {
+        userLocationRequestDto.setAccount(account);
+        UserLocation entity = userLocationRepository.save(userLocationRequestDto.toEntity());
+        return entity.getLocationId();
     }
 
     @Transactional
-    public Long update(final Account account, final UserLocationRequestDto params, final Long location_id) {
-        UserLocation entity = userLocationRepository.findById(location_id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));;
-        entity.update(params.getStart_location_title(), params.getStart_latitude(), params.getStart_longitude(), params.getEnd_location_title(), params.getEnd_latitude(), params.getEnd_longitude());
-        return entity.getLocation_id();
+    public Long update(final Account account, final UserLocationRequestDto userLocationRequestDto, final Long locationId) {
+        UserLocation entity = userLocationRepository.findById(locationId).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));;
+        entity.update(userLocationRequestDto.getStartLocationTitle(), userLocationRequestDto.getStartLatitude(), userLocationRequestDto.getStartLongitude(), userLocationRequestDto.getEndLocationTitle(), userLocationRequestDto.getEndLatitude(), userLocationRequestDto.getEndLongitude());
+        return entity.getLocationId();
     }
 
     @Transactional
-    public String findLocation(final Account account,  final UserLocationRequestDto params){
+    public String findLocation(final Account account,  final UserLocationRequestDto userLocationRequestDto){
         UserLocation entity =  userLocationRepository.findByAccount(account);
         return entity.getLocation();
     }

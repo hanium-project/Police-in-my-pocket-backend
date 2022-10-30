@@ -1,5 +1,6 @@
 package com.pocket.police.domain.user.entity;
 
+import com.pocket.police.global.common.Timestamped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +21,8 @@ import java.util.stream.Collectors;
 @Builder
 @Entity    //테이블과 링크될 클래스임을 나타냄
 @Table(name = "account")
-public class Account implements UserDetails {
+public class Account extends Timestamped implements UserDetails {  //extends가 먼저 나온다
+    // 현재 pk가 문자열로 되어있지만, DB 효율성을 위해 정수형으로 수정할 필요가 있다!
     @Id   //해당 테이블의 PK 필드를 나타냄
     @Column(name = "user_id", nullable = false)
     private String userId;
@@ -43,43 +45,30 @@ public class Account implements UserDetails {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "user_siren_code", nullable = true)
-    private int userSirenCode;
+    @Column(name = "siren_code", nullable = true)
+    private Integer sirenCode;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-
-//    @Builder  //해당 클래스의 빌더 패턴 클래스를 생성
-//    public Account(String userId, String password, String name, java.sql.Date birth, String gender, String address, String phoneNumber, int userSirenCode) {
-//        this.userId = userId;
-//        this.password = password;
-//        this.name = name;
-//        this.birth = birth;
-//        this.address = address;
-//        this.phoneNumber = phoneNumber;
-//        this.userSirenCode = userSirenCode;
-//        this.gender = gender;
-//    }
-
-    public void update(String userId, String password, String userName, java.sql.Date birth, String address, String phoneNumber, int userSirenCode, String gender) {
+    public void update (String userId, String password, String userName, java.sql.Date birth, String address, String phoneNumber, Integer sirenCode, String gender) {
         this.userId = userId;
         this.password = password;
         this.name = userName;
         this.birth = birth;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.userSirenCode = userSirenCode;
+        this.sirenCode = sirenCode;
         this.gender = gender;
     }
 
-    public void updatePassword(String newPassword) {
+    public void updatePassword (String newPassword) {
         this.password = newPassword;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {  //계정이 가진 권한 목록 리턴
+    public Collection<? extends GrantedAuthority> getAuthorities () {  //계정이 가진 권한 목록 리턴
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
@@ -90,22 +79,22 @@ public class Account implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
+    public boolean isAccountNonExpired () {
         return true;
     }
 
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonLocked () {
         return true;
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {
+    public boolean isCredentialsNonExpired () {
         return true;
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled () {
         return true;
     }
 }
