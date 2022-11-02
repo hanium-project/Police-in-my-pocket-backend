@@ -26,38 +26,38 @@ public class AccountController {
     private final MailService mailService;
 
     @PostMapping("/signup")
-    public String save (@RequestBody final AccountRequestDto accountRequestDto) {
-        return accountService.save (accountRequestDto);
+    public String save(@RequestBody final AccountRequestDto accountRequestDto) {
+        return accountService.save(accountRequestDto);
     }
 
     @PutMapping("/{userid}")
-    public String updateAccount (@PathVariable("userid") String userId, @RequestBody AccountRequestDto accountRequestDto) {
-        return accountService.update (userId, accountRequestDto);
+    public String updateAccount(@PathVariable("userid") String userId, @RequestBody AccountRequestDto accountRequestDto) {
+        return accountService.update(userId, accountRequestDto);
     }
 
     @DeleteMapping("/{userid}")
-    public String deleteAccount (@PathVariable ("userid") String userId) {
-        accountRepository.deleteById (userId); // 값 삭제
+    public String deleteAccount(@PathVariable ("userid") String userId) {
+        accountRepository.deleteById(userId); // 값 삭제
         return userId;
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<LoginTokenResponseDto> login (@RequestBody Map<String, String> user) {
+    public ResponseEntity<LoginTokenResponseDto> login(@RequestBody Map<String, String> user) {
         userPw = user.get("password");
 
-        LoginTokenResponseDto responseDto = accountService.login (user.get("userId"), user.get("password"));
+        LoginTokenResponseDto responseDto = accountService.login(user.get("userId"), user.get("password"));
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     @GetMapping("/rsignin")
-    public ResponseEntity<LoginTokenResponseDto> reLogin (@RequestParam("userId") String userId, @RequestParam("refreshToken") String refreshToken) {
-        LoginTokenResponseDto responseDto = accountService.reIssueToken (userId, userPw, refreshToken);
+    public ResponseEntity<LoginTokenResponseDto> reLogin(@RequestParam("userId") String userId, @RequestParam("refreshToken") String refreshToken) {
+        LoginTokenResponseDto responseDto = accountService.reIssueToken(userId, userPw, refreshToken);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
 
     @PostMapping("/signout")
-    public String logout (HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
             return accountService.logout(token.substring(7));
@@ -67,9 +67,9 @@ public class AccountController {
 
     //Email과 name의 일치여부를 check하는 컨트롤러
     @GetMapping("/findPw")
-    public @ResponseBody Map<String, Boolean> pw_find (@RequestBody Map<String, String> user){
+    public @ResponseBody Map<String, Boolean> pw_find(@RequestBody Map<String, String> user){
         Map<String,Boolean> json = new HashMap<>();
-        boolean pwFindCheck = accountService.userEmailCheck (user.get("userId"), user.get("name"));
+        boolean pwFindCheck = accountService.userEmailCheck(user.get("userId"), user.get("name"));
 
         System.out.println(pwFindCheck);
         json.put("check", pwFindCheck);
@@ -81,7 +81,6 @@ public class AccountController {
     public void sendEmail (@RequestBody Map<String, String> user){
         MailDto dto = mailService.createMailAndChangePassword(user.get("userId"), user.get("name"));
         mailService.mailSend(dto);
-
     }
 
 }

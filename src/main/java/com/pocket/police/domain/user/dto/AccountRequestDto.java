@@ -23,7 +23,7 @@ public class AccountRequestDto {
     private Integer sirenCode;
     private String gender;
 
-    public Account toEntity (){
+    public Account toEntity(){
         return Account.builder()
                 .userId(userId)
                 .password(password)
@@ -37,11 +37,11 @@ public class AccountRequestDto {
                 .build();
     }
 
-    public String getUserId () {
+    public String getUserId() {
         return userId;
     }
 
-    public String getPassword () {      // 이 부분은 보안 문제가 있기 때문에 수정이 조금 필요할 것 같다
+    public String getPassword() {      // 이 부분은 보안 문제가 있기 때문에 수정이 조금 필요할 것 같다
         return password;
     }
 }
