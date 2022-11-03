@@ -23,20 +23,20 @@ public class DangerLocationController {
     private final AccountService accountService;
 
     @PostMapping
-    public DangerLocationResponseDto create (@RequestBody DangerLocationRequestDto requestDto) {
-        DangerLocation dangerLocation = dangerLocationService.create (requestDto);
-        return dangerLocationMapper.fromEntity (dangerLocation);
+    public DangerLocationResponseDto create(@RequestBody DangerLocationRequestDto requestDto) {
+        DangerLocation dangerLocation = dangerLocationService.create(requestDto);
+        return dangerLocationMapper.fromEntity(dangerLocation);
     }
 
     @GetMapping
-    public List<DangerLocation> findAll () {
-        return dangerLocationService.findAll ();
+    public List<DangerLocation> findAll() {
+        return dangerLocationService.findAll();
     }
 
     @PostMapping("/{contact}")
-    public String sendEmergencySMS (HttpServletRequest request, @PathVariable String contact) {
-        String userId = accountService.tokenToUserId (request);
-        dangerLocationService.sendEmergencyMessage (userId, contact);
+    public String sendEmergencySMS(HttpServletRequest request, @PathVariable String contact) {
+        String userId = accountService.tokenToUserId(request);
+        dangerLocationService.sendEmergencyMessage(userId, contact);
         return userId;
     }
 }

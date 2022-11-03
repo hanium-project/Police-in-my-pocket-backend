@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class DangerLocationMapper {
     private final DangerLocationRepository dangerLocationRepository;
 
-    public DangerLocation toEntity (DangerLocationRequestDto requestDto) {
+    public DangerLocation toEntity(DangerLocationRequestDto requestDto) {
         return DangerLocation.builder()
                 .latitude(requestDto.latitude)
                 .longitude(requestDto.longitude)
@@ -20,7 +20,7 @@ public class DangerLocationMapper {
                 .build();
     }
 
-    public DangerLocationResponseDto fromEntity (DangerLocation dangerLocation) {
+    public DangerLocationResponseDto fromEntity(DangerLocation dangerLocation) {
         return DangerLocationResponseDto.builder()
                 .latitude(dangerLocation.getLatitude())
                 .locationTitle(dangerLocation.getLocationTitle())

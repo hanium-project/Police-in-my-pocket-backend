@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 public class DangerLocation extends Timestamped {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long locationId;
 
     @Column(name="latitude", nullable = false)
@@ -28,14 +28,14 @@ public class DangerLocation extends Timestamped {
     private Integer occurenceCount;
 
     @Builder
-    public DangerLocation (Double latitude, Double longitude, String locationTitle, Integer occurenceCount) {
+    public DangerLocation(Double latitude, Double longitude, String locationTitle, Integer occurenceCount) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.locationTitle = locationTitle;
         this.occurenceCount = 0;
     }
 
-    public void update (Integer occurenceCount) {
+    public void update(Integer occurenceCount) {
         occurenceCount++;
         this.occurenceCount = occurenceCount;
     }
