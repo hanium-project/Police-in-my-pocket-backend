@@ -11,16 +11,30 @@ services:
     volumes:
       - mysql:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - 3307:3306
     restart: always
 
   redis:
     image: redis:7.0
     container_name: redis
     ports:
-      - "6379:6379"
+      - 6379:6379
     volumes:
       - redis:/val/lib/redis/data
+
+  backend:
+    build: .
+    container_name: backend
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/polin
+      SPRING_DATASOURCE_USER: root
+      SPRING_DATASOURCE_PASSWORD: polin1111
+    depends_on:
+      - mysql
 
 volumes:
   mysql:

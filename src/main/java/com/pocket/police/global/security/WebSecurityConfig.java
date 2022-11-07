@@ -13,6 +13,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import retrofit2.http.Url;
 
 @EnableWebSecurity
 @RequiredArgsConstructor  //final, @notNull이 붙은 필드의 생성자를 자동으로 생성
@@ -62,5 +66,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.requestMatcher(new RequestHeaderRequestMatcher("Authorization"))
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisService),
                         UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOrigin("*");   // 허용할 URL
+        configuration.addAllowedHeader("*");   // 허용할 Header
+        configuration.addAllowedMethod("*");   // 허용할 Http Method
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

@@ -25,24 +25,24 @@ public class DangerLocationService {
     private final DangerLocationMapper dangerLocationMapper;
 
     @Transactional
-    public DangerLocation create (DangerLocationRequestDto requestDto) {
+    public DangerLocation create(DangerLocationRequestDto requestDto) {
         DangerLocation dangerLocation = dangerLocationRepository.findByLatitudeAndLongitude(requestDto.latitude, requestDto.longitude);
 
-        if(dangerLocation == null) {
-            return dangerLocationRepository.save (dangerLocationMapper.toEntity(requestDto));
+        if (dangerLocation == null) {
+            return dangerLocationRepository.save(dangerLocationMapper.toEntity(requestDto));
         } else {
-            dangerLocation.update (dangerLocation.getOccurenceCount());
+            dangerLocation.update(dangerLocation.getOccurenceCount());
             return dangerLocation;
         }
     }
 
     @Transactional
-    public List<DangerLocation> findAll () {
-        return dangerLocationRepository.findAll ();
+    public List<DangerLocation> findAll() {
+        return dangerLocationRepository.findAll();
     }
 
     @Transactional
-    public void sendEmergencyMessage (String name, String phoneNum) {
+    public void sendEmergencyMessage(String name, String phoneNum) {
         String apiKey = "NCSWPIJWYOHCUZAG";
         String apiSecrete = "Z7XWL26PH1L5KFE1NJ1WLCMWX3BKIVKY";
         Message msg = new Message(apiKey, apiSecrete);
