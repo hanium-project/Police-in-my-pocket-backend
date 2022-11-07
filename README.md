@@ -20,5 +20,3 @@
     ```
     docker-compose up -d --build
     ```
-
-- run `SpringBootApplication.java` in IntelliJ IDEA
