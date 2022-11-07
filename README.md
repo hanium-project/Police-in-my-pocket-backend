@@ -15,6 +15,8 @@
 
 ## 2. How to run on Docker environment
 
+- make bootJar file
+
 - docker-compose build
 
     ```
