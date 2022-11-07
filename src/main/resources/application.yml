@@ -6,7 +6,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/polin
+    url: jdbc:mysql://localhost:3307/polin   # 3307 -> 3306
     username: root
     password: polin1111
 
@@ -24,7 +24,6 @@ spring:
     host: localhost
     port: 6379
 
-
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
@@ -34,7 +33,6 @@ springdoc:
     path: /swagger-ui.html
     disable-swagger-default-url: true
     display-query-params-without-oauth2: true
-
 
 logging:
   level:
