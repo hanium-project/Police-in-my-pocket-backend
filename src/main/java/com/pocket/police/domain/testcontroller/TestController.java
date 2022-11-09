@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-    @GetMapping("/hello")
+    @GetMapping("/api/v1/hello")
     public String index() {
         return "Docker test success";
     }
