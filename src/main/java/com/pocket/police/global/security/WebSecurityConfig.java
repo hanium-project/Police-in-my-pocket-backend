@@ -55,15 +55,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //토큰 기반 인증이므로 세션 역시 사용하지 않음
                 .and()
                 .authorizeRequests()
-                //.antMatchers("/api/v1/**").permitAll()
-                .antMatchers( "/api/v1/users/**", "/swagger-ui/**", "/v3/**").permitAll()
+                //.antMatchers("/").permitAll()
+                .antMatchers( "/api/v1/users/**", "/swagger-ui/**", "/v3/**", "/actuator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                //.logout()
-                //.logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/users/logout"))
-               // .logoutSuccessUrl("/api/v1/users/msg")
-               // .and()
-                //.requestMatcher(new RequestHeaderRequestMatcher("Authorization"))
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisService),
                         UsernamePasswordAuthenticationFilter.class);
     }
