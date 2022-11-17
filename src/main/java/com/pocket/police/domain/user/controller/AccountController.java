@@ -5,6 +5,8 @@ import com.pocket.police.domain.user.dto.AccountRequestDto;
 import com.pocket.police.domain.user.dto.MailDto;
 import com.pocket.police.domain.user.repository.AccountRepository;
 import com.pocket.police.domain.user.service.AccountService;
+import com.pocket.police.global.config.response.CommonResponse;
+import com.pocket.police.global.config.response.ErrorCode;
 import com.pocket.police.global.service.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,8 +28,14 @@ public class AccountController {
     private final MailService mailService;
 
     @PostMapping("/signup")
-    public String save(@RequestBody final AccountRequestDto accountRequestDto) {
-        return accountService.save(accountRequestDto);
+    public CommonResponse<?> save(@RequestBody final AccountRequestDto accountRequestDto) {
+        boolean idDuplicated = accountService.isDuplicatedId(accountRequestDto.getUserId());
+        if(idDuplicated == true){ //아이디 중복
+            return new CommonResponse<>(ErrorCode.CONFLICT);
+        }else{ //중복 아님
+            accountService.save(accountRequestDto);
+            return new CommonResponse<>(ErrorCode.SUCCESS);
+        }
     }
 
     @PutMapping("/{userid}")

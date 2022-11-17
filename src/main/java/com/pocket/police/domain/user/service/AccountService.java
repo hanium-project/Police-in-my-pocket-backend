@@ -31,15 +31,17 @@ public class AccountService {
     final PasswordEncoder passwordEncoder;    // 의존성 주입이 안되면 nullException 생김
 
     @Transactional
-    public String save (final AccountRequestDto accountRequestDto) {
+    public void save (final AccountRequestDto accountRequestDto) {
         // System.out.println(accountRequestDto.getPassword());
         String password = passwordEncoder.encode(accountRequestDto.getPassword());
         System.out.println(password);
         accountRequestDto.setPassword(password);
         Account entity = accountRepository.save(accountRequestDto.toEntity());
-        return entity.getUserId();
     }
 
+    public boolean isDuplicatedId(String userId){
+        return accountRepository.existsById(userId);
+    }
     @Transactional
     public List<AccountResponseDto> findAll () {
         Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
