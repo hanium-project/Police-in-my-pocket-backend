@@ -6,7 +6,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3307/polin?&useSSL=false   # 3307 -> 3306
+    url: jdbc:mysql://mysql:3306/polin?&useSSL=false
     username: root
     password: polin1111
 
@@ -39,3 +39,8 @@ logging:
     org:
       hibernate: info
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
