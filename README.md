@@ -6,8 +6,8 @@
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3307/polin   # 3307 -> 3306
-        username: root
-        password: polin1111
+        username: {USER_NAME}
+        password: {USER_PASSWORD}
     ```
 
 - Install redis
