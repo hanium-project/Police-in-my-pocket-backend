@@ -34,3 +34,24 @@ jobs:
       
     - name: Build with Gradle
       run: ./gradlew clean build
+      
+    # CD
+    - name: Make Directory
+      run: mkdir deploy
+      
+    - name: Copy Jar file
+      run: ./build/libs/*-SNAPSHOT.jar ./deploy
+      
+    - name: Make zip file
+      run: zip -r -qq -j ./jar-file.zip ./deploy
+      
+    - name: Deliver to S3
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run:
+        aws s3 cp \
+          --region ap-northeast-2 \
+          --acl private \ 
+          ./jar-file.zip s3://hanium-deploy/
+    
