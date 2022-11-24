@@ -30,7 +30,7 @@ services:
     ports:
       - 8080:8080
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/polin
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/polin?&useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USER: root
       SPRING_DATASOURCE_PASSWORD: polin1111
     depends_on:
