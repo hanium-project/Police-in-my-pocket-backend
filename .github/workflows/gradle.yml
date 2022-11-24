@@ -36,4 +36,7 @@ jobs:
       
     - name: Build with Gradle
       run: ./gradlew clean build
+      
+    - name: Build docker-compose
+      run: docker-compose up -d --build
     
