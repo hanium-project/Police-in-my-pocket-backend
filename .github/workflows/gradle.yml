@@ -39,9 +39,6 @@ jobs:
     - name: Make Directory
       run: mkdir deploy
       
-    - name: Grant execute permission for jar
-      run: chmod +x ./build/libs/*-SNAPSHOT.jar
-      
     - name: Copy Jar file
       run: ./build/libs/*-SNAPSHOT.jar ./deploy
       
