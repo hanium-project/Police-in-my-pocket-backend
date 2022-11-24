@@ -30,30 +30,37 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        
+          
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
       
     - name: Build with Gradle
       run: ./gradlew clean build
       
-    # CD
-    - name: Make Directory
-      run: mkdir deploy
+    - name: Build docker-compose
+      run: docker-compose up -d --build
       
-    - name: Copy Jar file
-      run: ./build/libs/*-SNAPSHOT.jar ./deploy/
-      
-    - name: Make zip file
-      run: zip -r -qq -j ./jar-file.zip ./deploy
-      
-    - name: Deliver to S3
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: | 
-        aws s3 cp \
-          --region ap-northeast-2 \
-          --acl private \ 
-          ./jar-file.zip s3://hanium-deploy/
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
     
+    steps:
+    - uses: actions/checkout@v2 
+    - name: Deploy in EC2
+      env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOSTNAME : ${{ secrets.AWS_IP_ADDRESS  }}
+          USER_NAME : ubuntu
+
+      run: |
+        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+        ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${HOSTNAME} '
+
+          #Now we have got the access of EC2 and we will start the deploy .
+          cd /home/ubuntu/CounterApp &&
+          git checkout master &&
+          git fetch --all &&
+          git reset --hard origin/master &&
+          git pull origin master &&
+          docker-compose -f docker-compose.prod.yml up -d --build 
+        '
