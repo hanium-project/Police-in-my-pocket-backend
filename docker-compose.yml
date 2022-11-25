@@ -5,8 +5,8 @@ services:
     image: mysql:latest
     container_name: mysql
     environment:
-      MYSQL_DATABASE: polin
-      MYSQL_ROOT_PASSWORD: polin1111
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_HOST: '%'
     volumes:
       - mysql:/var/lib/mysql
@@ -30,9 +30,9 @@ services:
     ports:
       - 8080:8080
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/polin?&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USER: root
-      SPRING_DATASOURCE_PASSWORD: polin1111
+      SPRING_DATASOURCE_URL: ${DB_URL}
+      SPRING_DATASOURCE_USER: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - mysql
 
