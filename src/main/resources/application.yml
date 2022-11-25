@@ -5,10 +5,8 @@ spring:
       path: /h2   # path value is not /h2-console
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/polin?&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: polin1111
+    include:
+      - mysql
 
   jpa:
     hibernate:
@@ -23,6 +21,10 @@ spring:
   redis:
     host: redis
     port: 6379
+
+  message:
+    include:
+      - message
 
 springdoc:
   default-consumes-media-type: application/json
