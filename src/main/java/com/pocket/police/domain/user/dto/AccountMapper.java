@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class AccountMapper {
     private final AccountRepository accountRepository;
 
-    public Account toEntity (AccountRequestDto requestDto) {
+    public Account toEntity(AccountRequestDto requestDto) {
         //저장하는 클래스 toEntity(entity로 데이터를 전송)
         return Account.builder()
                 .userId(requestDto.getUserId())

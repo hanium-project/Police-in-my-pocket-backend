@@ -25,6 +25,9 @@ spring:
   message:
     include:
       - message
+  email:
+    include:
+      - email
 
 springdoc:
   default-consumes-media-type: application/json

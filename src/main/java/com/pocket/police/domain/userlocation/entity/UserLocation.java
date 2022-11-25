@@ -41,7 +41,7 @@ public class UserLocation extends Timestamped {
     private Double endLongitude;
 
     @Builder
-    public UserLocation (Account account, String startLocationTitle, Double startLatitude, Double startLongitude,
+    public UserLocation(Account account, String startLocationTitle, Double startLatitude, Double startLongitude,
                          String endLocationTitle, Double endLatitude, Double endLongitude)
     {
         this.account = account;
@@ -53,7 +53,7 @@ public class UserLocation extends Timestamped {
         this.endLongitude = endLongitude;
     }
 
-    public void update (String startLocationTitle, Double startLatitude, Double startLongitude,
+    public void update(String startLocationTitle, Double startLatitude, Double startLongitude,
                        String endLocationTitle, Double endLatitude, Double endLongitude)
     {
         this.startLocationTitle = startLocationTitle;
@@ -63,7 +63,7 @@ public class UserLocation extends Timestamped {
         this.endLatitude = endLatitude;
         this.endLongitude = endLongitude;
     }
-    public String getLocation (){
+    public String getLocation() {
         String str = "출발지: " + startLocationTitle + ", 도착지: " + endLocationTitle;
         return str;
     }

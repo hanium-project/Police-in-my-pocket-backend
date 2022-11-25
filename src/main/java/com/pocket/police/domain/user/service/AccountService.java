@@ -31,7 +31,7 @@ public class AccountService {
     final PasswordEncoder passwordEncoder;    // 의존성 주입이 안되면 nullException 생김
 
     @Transactional
-    public void save (final AccountRequestDto accountRequestDto) {
+    public void save(final AccountRequestDto accountRequestDto) {
         // System.out.println(accountRequestDto.getPassword());
         String password = passwordEncoder.encode(accountRequestDto.getPassword());
         System.out.println(password);
@@ -43,14 +43,14 @@ public class AccountService {
         return accountRepository.existsById(userId);
     }
     @Transactional
-    public List<AccountResponseDto> findAll () {
+    public List<AccountResponseDto> findAll() {
         Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
         List<Account> list = accountRepository.findAll(sort);
         return list.stream().map(AccountResponseDto::new).collect(Collectors.toList());
     }
 
     @Transactional
-    public String update (final String userId, final AccountRequestDto accountRequestDto) {
+    public String update(final String userId, final AccountRequestDto accountRequestDto) {
 
         Account entity = accountRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));
         entity.update(accountRequestDto.getUserId(), accountRequestDto.getPassword(), accountRequestDto.getName(), accountRequestDto.getBirth(), accountRequestDto.getAddress(), accountRequestDto.getPhoneNumber(),
@@ -60,7 +60,7 @@ public class AccountService {
 
 
     @Transactional
-    public LoginTokenResponseDto login (String userId, String password) {
+    public LoginTokenResponseDto login(String userId, String password) {
         Account account = accountRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("없는 사용자 id : " + userId));
 
@@ -75,7 +75,7 @@ public class AccountService {
     }
 
     @Transactional
-    public LoginTokenResponseDto reIssueToken (String userId, String password, String refreshToken) {
+    public LoginTokenResponseDto reIssueToken(String userId, String password, String refreshToken) {
         Account account = accountRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("없는 사용자 id : " + userId));
 
@@ -89,7 +89,7 @@ public class AccountService {
         return new LoginTokenResponseDto(accessToken, refreshToken);
     }
 
-    public String logout (String accessToken) {
+    public String logout(String accessToken) {
         // AccessToken 검증하기 (유효성 검증)
         if(!jwtTokenProvider.validateToken (accessToken)) {
             return "이미 만료된 토큰입니다.";
@@ -111,7 +111,7 @@ public class AccountService {
         return "로그아웃 되었습니다.";
     }
 
-    public boolean userEmailCheck (String userId, String userName) {
+    public boolean userEmailCheck(String userId, String userName) {
 
         Account account = accountRepository.findByUserId (userId)
                 .orElseThrow(() -> new IllegalArgumentException("없는 사용자 id : " + userId));
@@ -123,7 +123,7 @@ public class AccountService {
         }
     }
 
-    public String tokenToUserId (HttpServletRequest request) {
+    public String tokenToUserId(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         String userToken = null;
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

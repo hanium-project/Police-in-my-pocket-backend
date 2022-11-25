@@ -16,7 +16,7 @@ public class AccountResponseDto {
     private Integer sirenCode;
     private String gender;
 
-    public AccountResponseDto (Account entity) {
+    public AccountResponseDto(Account entity) {
         this.userId = entity.getUserId();
         this.password = entity.getPassword();
         this.name = entity.getName();

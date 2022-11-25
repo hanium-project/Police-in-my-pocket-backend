@@ -52,7 +52,7 @@ public class Account extends Timestamped implements UserDetails {  //extends가 
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    public void update (String userId, String password, String userName, java.sql.Date birth, String address, String phoneNumber, Integer sirenCode, String gender) {
+    public void update(String userId, String password, String userName, java.sql.Date birth, String address, String phoneNumber, Integer sirenCode, String gender) {
         this.userId = userId;
         this.password = password;
         this.name = userName;
@@ -63,12 +63,12 @@ public class Account extends Timestamped implements UserDetails {  //extends가 
         this.gender = gender;
     }
 
-    public void updatePassword (String newPassword) {
+    public void updatePassword(String newPassword) {
         this.password = newPassword;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities () {  //계정이 가진 권한 목록 리턴
+    public Collection<? extends GrantedAuthority> getAuthorities() {  //계정이 가진 권한 목록 리턴
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
@@ -79,22 +79,22 @@ public class Account extends Timestamped implements UserDetails {  //extends가 
     }
 
     @Override
-    public boolean isAccountNonExpired () {
+    public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    public boolean isAccountNonLocked () {
+    public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
-    public boolean isCredentialsNonExpired () {
+    public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
-    public boolean isEnabled () {
+    public boolean isEnabled() {
         return true;
     }
 }

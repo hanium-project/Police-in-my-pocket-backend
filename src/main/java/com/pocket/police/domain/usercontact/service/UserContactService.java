@@ -15,22 +15,22 @@ public class UserContactService {
     private final UserContactRepository userContactRepository;
 
     @Transactional
-    public UserContact save (final Account account, final UserContactRequestDto userContactRequestDto) {
-        userContactRequestDto.setAccount (account);
-        UserContact userContactEntity = userContactRepository.save (userContactRequestDto.toEntity());
+    public UserContact save(final Account account, final UserContactRequestDto userContactRequestDto) {
+        userContactRequestDto.setAccount(account);
+        UserContact userContactEntity = userContactRepository.save(userContactRequestDto.toEntity());
         return userContactEntity;
     }
 
     @Transactional
-    public Long update (final Account account, final UserContactRequestDto userContactRequestDto, final Long contactId) {
-        UserContact entity = userContactRepository.findById (contactId).orElseThrow (() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));;
-        entity.update(userContactRequestDto.getName (), userContactRequestDto.getContact (), userContactRequestDto.getRelationship ());
-        return entity.getContactId ();
+    public Long update(final Account account, final UserContactRequestDto userContactRequestDto, final Long contactId) {
+        UserContact entity = userContactRepository.findById(contactId).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다."));;
+        entity.update(userContactRequestDto.getName(), userContactRequestDto.getContact(), userContactRequestDto.getRelationship());
+        return entity.getContactId();
     }
 
     @Transactional
-    public String findContact (final Account account){
-        UserContact entity = userContactRepository.findByAccount (account);
-        return entity.getContact ();
+    public String findContact(final Account account) {
+        UserContact entity = userContactRepository.findByAccount(account);
+        return entity.getContact();
     }
 }

@@ -18,8 +18,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     private final RedisService redisService;
 
     @Override
-    public void doFilter (ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = jwtTokenProvider.resolveToken ((HttpServletRequest) request);  //헤더에서 토큰을 받아옴
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);  //헤더에서 토큰을 받아옴
 
         //유효한 토큰인가?
         if (token != null && jwtTokenProvider.validateToken(token)) {

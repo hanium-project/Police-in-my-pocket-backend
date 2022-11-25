@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserContactRepository extends JpaRepository<UserContact, Long> {
-        UserContact findByAccount (Account account);
+        UserContact findByAccount(Account account);
 }

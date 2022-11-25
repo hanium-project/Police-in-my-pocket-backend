@@ -22,21 +22,21 @@ public class UserLocationController {
     private final AccountService accountService;
 
     @GetMapping
-    public String findContact (HttpServletRequest request, @RequestBody UserLocationRequestDto requestDto) {
+    public String findContact(HttpServletRequest request, @RequestBody UserLocationRequestDto requestDto) {
         String userId = accountService.tokenToUserId(request);
         Account account = accountRepository.findById(userId).get();
         return userLocationService.findLocation(account, requestDto);
     }
 
     @PostMapping
-    public Long save (HttpServletRequest request,@RequestBody UserLocationRequestDto requestDto) {
+    public Long save(HttpServletRequest request,@RequestBody UserLocationRequestDto requestDto) {
         String userId = accountService.tokenToUserId(request);
         Account account = accountRepository.findById(userId).get();
         return userLocationService.save(account, requestDto);
     }
 
     @PutMapping("/{location_id}")
-    public Long update (HttpServletRequest request, @RequestBody UserLocationRequestDto requestDto, @PathVariable("location_id") Long locationId) {
+    public Long update(HttpServletRequest request, @RequestBody UserLocationRequestDto requestDto, @PathVariable("location_id") Long locationId) {
         String userId = accountService.tokenToUserId(request);
         Account account = accountRepository.findById(userId).get();
         requestDto.setAccount(account);
@@ -44,7 +44,7 @@ public class UserLocationController {
     }
 
     @DeleteMapping("/{location_id}")
-    public Long deleteContact (@PathVariable ("location_id") Long locationId) {
+    public Long deleteContact(@PathVariable("location_id") Long locationId) {
         userLocationRepository.deleteById(locationId); // 값 삭제
         return locationId;
     }

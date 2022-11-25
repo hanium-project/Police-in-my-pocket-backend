@@ -31,7 +31,7 @@ public class UserLocationService {
     }
 
     @Transactional
-    public String findLocation(final Account account,  final UserLocationRequestDto userLocationRequestDto){
+    public String findLocation(final Account account,  final UserLocationRequestDto userLocationRequestDto) {
         UserLocation entity =  userLocationRepository.findByAccount(account);
         return entity.getLocation();
     }

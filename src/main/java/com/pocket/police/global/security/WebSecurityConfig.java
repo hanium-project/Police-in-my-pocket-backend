@@ -1,8 +1,8 @@
 package com.pocket.police.global.security;
 
 import com.pocket.police.global.service.RedisService;
-import com.pocket.police.global.status_response.JwtAccessDeniedHandler;
-import com.pocket.police.global.status_response.JwtAuthenticationEntryPoint;
+import com.pocket.police.global.statusresponse.JwtAccessDeniedHandler;
+import com.pocket.police.global.statusresponse.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import retrofit2.http.Url;
 
 @EnableWebSecurity
 @RequiredArgsConstructor  //final, @notNull이 붙은 필드의 생성자를 자동으로 생성
@@ -32,18 +31,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
     @Bean
-    PasswordEncoder getPasswordEncoder () {
+    PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean () throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Override
-    protected void configure (HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable()   //http 기본 설정 해제
                 .cors().and()
                 .csrf().disable()   //csrf 보안 토큰 disable 처리

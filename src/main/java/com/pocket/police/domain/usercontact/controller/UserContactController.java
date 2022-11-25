@@ -23,30 +23,30 @@ public class UserContactController {
     private final AccountService accountService;
 
     @GetMapping
-    public String findContact (HttpServletRequest request) {
-        String userId = accountService.tokenToUserId (request);
-        Account account = accountRepository.findById (userId).get();
-        return userContactService.findContact (account);
+    public String findContact(HttpServletRequest request) {
+        String userId = accountService.tokenToUserId(request);
+        Account account = accountRepository.findById(userId).get();
+        return userContactService.findContact(account);
     }
 
     @PostMapping
-    public UserContact save (HttpServletRequest request, @RequestBody UserContactRequestDto contactRequestDto) {
-        String userId = accountService.tokenToUserId (request);
-        Account account = accountRepository.findById (userId).get();
-        return userContactService.save (account, contactRequestDto);
+    public UserContact save(HttpServletRequest request, @RequestBody UserContactRequestDto contactRequestDto) {
+        String userId = accountService.tokenToUserId(request);
+        Account account = accountRepository.findById(userId).get();
+        return userContactService.save(account, contactRequestDto);
     }
 
     @PutMapping("/{contact_id}")
-    public Long update (HttpServletRequest request, @RequestBody UserContactRequestDto contactRequestDto, @PathVariable("contact_id") Long contactId) {
-        String userId = accountService.tokenToUserId (request);
-        Account account = accountRepository.findById (userId).get();
-        contactRequestDto.setAccount (account);
-        return userContactService.update (account, contactRequestDto, contactId);
+    public Long update(HttpServletRequest request, @RequestBody UserContactRequestDto contactRequestDto, @PathVariable("contact_id") Long contactId) {
+        String userId = accountService.tokenToUserId(request);
+        Account account = accountRepository.findById(userId).get();
+        contactRequestDto.setAccount(account);
+        return userContactService.update(account, contactRequestDto, contactId);
     }
 
     @DeleteMapping("/{user_id}/{contact_id}")
-    public Long deleteContact (HttpServletRequest request, @PathVariable ("contact_id") Long id) {
-        userContactRepository.deleteById (id); // 값 삭제
+    public Long deleteContact(HttpServletRequest request, @PathVariable("contact_id") Long id) {
+        userContactRepository.deleteById(id); // 값 삭제
         return id;
     }
 }

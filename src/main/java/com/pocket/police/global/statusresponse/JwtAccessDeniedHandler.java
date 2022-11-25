@@ -1,4 +1,4 @@
-package com.pocket.police.global.status_response;
+package com.pocket.police.global.statusresponse;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

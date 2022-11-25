@@ -19,7 +19,7 @@ public class MailService {
     private static final String FROM_ADDRESS = "wisjang1@naver.com";
 
 
-    public MailDto createMailAndChangePassword (String userId, String userName) {
+    public MailDto createMailAndChangePassword(String userId, String userName) {
         String str = getTempPassword();
         MailDto dto = new MailDto();
         dto.setAddress(userId);
@@ -30,7 +30,7 @@ public class MailService {
         return dto;
     }
 
-    public void updatePassword (String userId, String password) {
+    public void updatePassword(String userId, String password) {
         String pw = passwordEncoder.encode(password);
         Account account = accountRepository.findByUserId(userId).get();
         account.updatePassword(pw);

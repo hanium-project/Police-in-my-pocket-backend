@@ -18,7 +18,7 @@ public class UserLocationRequestDto {
     public Double endLatitude;
     public Double endLongitude;
 
-    public UserLocation toEntity () {
+    public UserLocation toEntity() {
         return UserLocation.builder()
                 .account(account)
                 .startLocationTitle(startLocationTitle)

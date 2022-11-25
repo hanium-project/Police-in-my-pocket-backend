@@ -15,7 +15,7 @@ public class MailConfig {
 
         javaMailSender.setHost("smtp.naver.com");
         javaMailSender.setUsername("wisjang1@naver.com");
-        javaMailSender.setPassword("JN66NW9FHFWS");
+        javaMailSender.setPassword("${spring.email.password}");
 
         javaMailSender.setPort(465);
 
