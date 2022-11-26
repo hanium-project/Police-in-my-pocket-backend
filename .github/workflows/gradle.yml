@@ -35,28 +35,4 @@ jobs:
       
     - name: Build docker-compose
       run: docker-compose up -d --build
-      
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v2 
-    - name: Deploy in EC2
-      env:
-          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
-          HOSTNAME : ${{ secrets.AWS_IP_ADDRESS  }}
-          USER_NAME : ubuntu
-
-      run: |
-        echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-        ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${HOSTNAME} '
-
-          #Now we have got the access of EC2 and we will start the deploy .
-          cd /home/ubuntu/CounterApp &&
-          git checkout main &&
-          git fetch --all &&
-          git reset --hard origin/main&&
-          git pull origin main &&
-          docker-compose -f docker-compose.yml up -d --build 
         '
