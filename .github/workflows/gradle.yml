@@ -81,13 +81,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           
-      - name: Build and Push
-        uses: docker/build-push-action@v1
-        id: hanium_polinpo
-        with:
-          context: ../../.
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/hanium-cd:polinpo
+      - name: Dockerfile Build
+        run: docker build -t polin-backend .
+        
+      - name: Dockerfile push to repo
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/hanium-cd:polin-backend
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
