@@ -87,10 +87,7 @@ jobs:
         run: ./gradlew clean build
           
       - name: Dockerfile Build
-        run: docker build -t polin-backend .
-        
-      - name: Tag Dockerfile image
-        run: docker image tag ${{ secrets.DOCKER_USERNAME }}/hanium-cd
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/hanium-cd .
 
       - name: Dockerfile push to repo
         run: docker push ${{ secrets.DOCKER_USERNAME }}/hanium-cd
