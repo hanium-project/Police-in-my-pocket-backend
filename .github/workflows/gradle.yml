@@ -86,7 +86,7 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/docker-memo:latest
+          # tags: ${{ secrets.DOCKER_USERNAME }}/docker-memo:latest
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
