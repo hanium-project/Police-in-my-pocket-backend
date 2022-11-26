@@ -83,6 +83,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           
+      - name: Build with Gradle
+        run: ./gradlew clean build
+          
       - name: Dockerfile Build
         run: docker build -t polin-backend .
         
