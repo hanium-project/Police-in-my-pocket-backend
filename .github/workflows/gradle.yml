@@ -89,8 +89,24 @@ jobs:
       - name: Dockerfile Build
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/hanium-cd .
 
+        # dockerhub의 레포지토리 이름과 도커 이미지 이름을 똑같이 해줘야 한다.
       - name: Dockerfile push to repo
         run: docker push ${{ secrets.DOCKER_USERNAME }}/hanium-cd
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+        
+  cd:
+    needs: build-docker
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v2
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: "docker-compose pull && docker-compose up"
