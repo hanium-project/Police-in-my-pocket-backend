@@ -109,4 +109,6 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
-          script: "docker-compose pull && docker-compose up"
+          script: |
+            docker pull yuheejin/hanium-cd:latest
+            docker-compose pull && docker-compose up
