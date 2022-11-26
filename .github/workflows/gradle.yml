@@ -68,6 +68,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v3
+       
       # 하나의 가상 컴퓨터를 구축해주는 소프트웨어
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
