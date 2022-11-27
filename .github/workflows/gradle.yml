@@ -106,5 +106,5 @@ jobs:
           port: 22
           source: "docker-compose.prod.yml"
           target: "/home/ubuntu/"
-          script: "docker-compose -f docker-compose.prod.yml up -d --build"
+          script: "docker pull ${{ secrets.DOCKER_USERNAME }}/hanium-cd:latest && docker-compose -f docker-compose.prod.yml up -d --build"
         
