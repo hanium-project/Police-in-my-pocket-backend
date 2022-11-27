@@ -23,7 +23,7 @@ services:
       - redis:/val/lib/redis/data
 
   backend:
-    build: yuheejin/hanium-cd:latest
+    build: .
     container_name: backend
     expose:
       - 8080
