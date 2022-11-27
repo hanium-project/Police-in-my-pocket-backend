@@ -106,5 +106,5 @@ jobs:
           port: 22
           source: "docker-compose.prod.yml"
           target: "/home/ubuntu/"
-          script: "docker-compose pull && docker-compose up -d"
+          script: "docker-compose -f docker-compose.prod.yml up -d --build"
         
