@@ -95,21 +95,20 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       - name: Deploy
         env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          HOSTNAME: ${{ secrets.HOST }}
-          USER_NAME: ubuntu
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-          
-          cd /home/ubuntu/ &&
-          git checkout main &&
-          git fetch --all &&
-          git reset --hard origin/main &&
-          git pull origin master &&
-          docker-compose -f docker-compose.prod.yml up -d --build 
-        '
+            PRIVATE_KEY: ${{ secrets.PRIVATE_KEY  }}
+            HOSTNAME : ${{ secrets.HOSTNAME  }}
+            USER_NAME : ubuntu
+        uses: appleboy/scp-action@main
+        with:
+          host: ${{ secrets.HOST }}
+          username: ec2-user
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          source: "docker-compose.prod.yml"
+          target: "/home/ubuntu/"
+          script: "docker-compose pull && docker-compose up -d"
+        
