@@ -106,7 +106,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           source: "docker-compose-cd.yml"
-          target: "~/backend"
+          target: "/home/ubuntu/"
           
       - name: remote ssh
         uses: appleboy/ssh-action@master
