@@ -30,7 +30,7 @@ public class JwtTokenProvider {
     private String secretKey = "policeInMyPocket";
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "bearer";
-    //토큰 유효시간은 정하지 않음. 향후 수정 예정
+    
     private Long tokenValidTime = 1000L * 60 * 3;   //3m
     private Long refreshTokenValid = 1000L * 60 * 60 * 24;  //1d
     private final UserDetailsService userDetailsService;
